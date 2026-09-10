@@ -45,7 +45,6 @@
             
             <!-- Brand Logo & Name -->
             <button type="button" class="flex items-center gap-3 cursor-pointer text-left focus:outline-none" onclick="showView('homeView')">
-                <!-- KOMPONEN LOGO BERBASIS URL -->
                 <div class="w-12 h-12 rounded-2xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-emerald-600/20 border border-emerald-500/30 shrink-0 p-1">
                     <img 
                         src="https://raw.githubusercontent.com/pkbmbd/spmb/refs/heads/main/0.%20Logo%20PKBM%20Bahtera%20Dua.png" 
@@ -181,7 +180,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-                    <!-- YouTube Channel Link Card -->
                     <a href="https://www.youtube.com/@pkbmbahteraduakotablitar" target="_blank" rel="noopener noreferrer" class="group bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 hover:border-red-500 dark:hover:border-red-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between space-y-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 flex items-center justify-center text-2xl group-hover:scale-110 transition">
@@ -214,7 +212,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-                    <!-- Instagram Item 1 -->
                     <div class="bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 rounded-2xl overflow-hidden shadow-sm p-4">
                         <div class="w-full overflow-hidden flex justify-center bg-slate-50 dark:bg-emerald-950/40 rounded-xl p-2 min-h-[300px]">
                             <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DZ2Cqowzr13/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
@@ -223,7 +220,6 @@
                         </div>
                     </div>
 
-                    <!-- Instagram Item 2 -->
                     <div class="bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 rounded-2xl overflow-hidden shadow-sm p-4">
                         <div class="w-full overflow-hidden flex justify-center bg-slate-50 dark:bg-emerald-950/40 rounded-xl p-2 min-h-[300px]">
                             <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DZ1ojU0TPAO/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
@@ -232,7 +228,6 @@
                         </div>
                     </div>
 
-                    <!-- Instagram Item 3 -->
                     <div class="bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 rounded-2xl overflow-hidden shadow-sm p-4">
                         <div class="w-full overflow-hidden flex justify-center bg-slate-50 dark:bg-emerald-950/40 rounded-xl p-2 min-h-[300px]">
                             <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DWkdis0k5RY/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
@@ -255,7 +250,7 @@
 
     </main>
 
-    <!-- MODAL 1: TENTANG KAMI -->
+    <!-- MODAL 1: TENTANG KAMI (PORTOFOLIO + ALAMAT + MAPS) -->
     <div id="aboutModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
         <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
             
@@ -277,6 +272,35 @@
                 <p>
                     <strong>Pusat Kegiatan Belajar Masyarakat (PKBM) Bahtera Dua Kota Blitar</strong> merupakan lembaga pendidikan nonformal yang berkomitmen memberikan akses pendidikan berkualitas, inklusif, dan fleksibel bagi seluruh lapisan masyarakat.
                 </p>
+            </div>
+
+            <!-- BAGIAN ALAMAT & GOOGLE MAPS -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                    <i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i> Alamat & Lokasi Gedung
+                </h4>
+                <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200/60 dark:border-emerald-800/60 space-y-3">
+                    <p class="text-xs sm:text-sm text-slate-700 dark:text-emerald-100 font-medium leading-relaxed">
+                        Jl. Lekso No. 18, Kelurahan Pakunden, Kecamatan Sukorejo, Kota Blitar, Jawa Timur 66122
+                    </p>
+                    
+                    <!-- Embed Google Maps Frame -->
+                    <div class="w-full h-52 rounded-xl overflow-hidden border border-emerald-200 dark:border-emerald-800 shadow-inner">
+                        <iframe 
+                            class="w-full h-full border-0"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.711203875151!2d112.14811807588825!3d-8.10037149192842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78ec80fae62a39%3A0x6a1bc6cb23d9b4b0!2sPKBM%20BAHTERA%20DUA!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <!-- Tombol Buka Maps -->
+                    <a href="https://maps.google.com/?q=PKBM+Bahtera+Dua+Kota+Blitar" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
+                        <i class="fa-solid fa-diamond-turn-right"></i>
+                        <span>Buka Petunjuk Arah di Google Maps</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Program Layanan -->
@@ -360,78 +384,72 @@
                     </a>
                 </div>
 
-                <!-- 2. GRID 6 ADMIN WHATSAPP DENGAN NAMA -->
+                <!-- 2. GRID 6 NAMA WHATSAPP -->
                 <div class="space-y-2">
-                    <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Admin Whatsapp (6 Pilihan)</h4>
+                    <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Layanan WhatsApp</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         
-                        <!-- Admin 1: Mualim -->
                         <a href="https://wa.me/6285736177819" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
                             <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 1 - Mualim</p>
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Mualim</p>
                                 <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0857-3617-7819</p>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
                         </a>
 
-                        <!-- Admin 2: Risdianto -->
                         <a href="https://wa.me/6285735918997" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
                             <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 2 - Risdianto</p>
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Risdianto</p>
                                 <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0857-3591-8997</p>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
                         </a>
 
-                        <!-- Admin 3: Erlina -->
                         <a href="https://wa.me/6285649053749" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
                             <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 3 - Erlina</p>
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Erlina</p>
                                 <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0856-4905-3749</p>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
                         </a>
 
-                        <!-- Admin 4: Ryan -->
                         <a href="https://wa.me/6285646454463" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
                             <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 4 - Ryan</p>
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Ryan</p>
                                 <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0856-4645-4463</p>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
                         </a>
 
-                        <!-- Admin 5: Irul -->
                         <a href="https://wa.me/6289531862670" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
                             <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 5 - Irul</p>
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Irul</p>
                                 <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0895-3186-2670</p>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
                         </a>
 
-                        <!-- Admin 6: Nanda -->
                         <a href="https://wa.me/6285735817888" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
                             <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 6 - Nanda</p>
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Nanda</p>
                                 <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0857-3581-7888</p>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
@@ -444,8 +462,6 @@
                 <div class="space-y-2">
                     <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Media Sosial & Email</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        
-                        <!-- YouTube -->
                         <a href="https://www.youtube.com/@pkbmbahteraduakotablitar" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/40 border border-red-200/60 dark:border-red-800/40 transition group">
                             <div class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center text-sm shrink-0">
                                 <i class="fa-brands fa-youtube"></i>
@@ -456,7 +472,6 @@
                             </div>
                         </a>
 
-                        <!-- Instagram -->
                         <a href="https://www.instagram.com/pkbmbahteradua" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-pink-50 dark:bg-pink-950/30 hover:bg-pink-100 dark:hover:bg-pink-900/40 border border-pink-200/60 dark:border-pink-800/40 transition group">
                             <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 text-white flex items-center justify-center text-sm shrink-0">
                                 <i class="fa-brands fa-instagram"></i>
@@ -467,7 +482,6 @@
                             </div>
                         </a>
 
-                        <!-- Email -->
                         <a href="mailto:bahteradua.kotablitar@gmail.com" class="flex items-center gap-3 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-900/40 border border-amber-200/60 dark:border-amber-800/40 transition group">
                             <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-sm shrink-0">
                                 <i class="fa-solid fa-envelope"></i>
@@ -477,7 +491,6 @@
                                 <p class="text-[10px] text-slate-500 dark:text-emerald-300/70 truncate">bahteradua.kotablitar...</p>
                             </div>
                         </a>
-
                     </div>
                 </div>
 
@@ -508,7 +521,6 @@
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Trigger re-parse embed Instagram & Facebook saat masuk ke galeri
             if (viewId === 'galleryView') {
                 if (window.instgrm && window.instgrm.Embeds) {
                     window.instgrm.Embeds.process();
@@ -519,7 +531,7 @@
             }
         }
 
-        // Dark Mode Toggle dengan LocalStorage
+        // Dark/Light Mode Switcher - DEFAULT LIGHT MODE
         const themeToggleBtn = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const htmlElement = document.documentElement;
@@ -534,11 +546,12 @@
             }
         }
 
+        // Cek localStorage, jika belum ada simpanan tema, paksa 'light'
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (savedTheme === 'dark') {
             updateThemeUI(true);
         } else {
-            updateThemeUI(false);
+            updateThemeUI(false); // Default Terang (Light Mode)
         }
 
         themeToggleBtn.addEventListener('click', () => {
