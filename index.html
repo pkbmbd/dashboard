@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Utama PKBM Bahtera Dua</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Instagram Embed Script -->
+    <script async src="https://www.instagram.com/embed.js"></script>
+    <!-- Facebook SDK Script -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v18.0"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-emerald-50 dark:bg-emerald-950 text-slate-800 dark:text-emerald-100 min-h-screen flex flex-col transition-colors duration-300">
+
+    <div id="fb-root"></div>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="border-b border-emerald-200 dark:border-emerald-800/60 bg-white/80 dark:bg-emerald-900/40 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo & Name -->
+            <button type="button" class="flex items-center gap-3 cursor-pointer text-left focus:outline-none" onclick="showView('homeView')">
+                <!-- KOMPONEN LOGO BERBASIS URL -->
+                <div class="w-12 h-12 rounded-2xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-emerald-600/20 border border-emerald-500/30 shrink-0 p-1">
+                    <img 
+                        src="https://raw.githubusercontent.com/pkbmbd/spmb/refs/heads/main/0.%20Logo%20PKBM%20Bahtera%20Dua.png" 
+                        alt="Logo PKBM Bahtera Dua" 
+                        class="w-full h-full object-contain"
+                        onerror="this.onerror=null; this.src='https://via.placeholder.com/150/059669/FFFFFF?text=LOGO';"
+                    />
+                </div>
+                <div>
+                    <h1 class="font-black text-xl tracking-tight text-emerald-950 dark:text-emerald-50">PKBM BAHTERA DUA</h1>
+                    <p class="text-xs font-medium text-emerald-600 dark:text-emerald-400">Pusat Navigasi & Layanan Digital</p>
+                </div>
+            </button>
+
+            <!-- Navigation Links & Theme Toggle -->
+            <nav class="flex items-center gap-2 sm:gap-4">
+                <button type="button" onclick="toggleModal('aboutModal')" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold text-emerald-800 dark:text-emerald-200 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 transition">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Tentang Kami
+                </button>
+                <button type="button" onclick="toggleModal('contactModal')" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold text-emerald-800 dark:text-emerald-200 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 transition">
+                    <i class="fa-solid fa-address-book mr-1"></i> Kontak
+                </button>
+                
+                <!-- Dark Mode Toggle Button -->
+                <button type="button" id="themeToggle" aria-label="Toggle Dark Mode" class="p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-800/50 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800 transition">
+                    <i id="themeIcon" class="fa-solid fa-moon text-base"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- HALAMAN 1: HOME -->
+        <section id="homeView" class="space-y-8">
+
+            <!-- HERO BANNER -->
+            <div class="relative rounded-3xl bg-gradient-to-r from-emerald-800 via-emerald-700 to-green-900 text-white p-8 sm:p-10 overflow-hidden shadow-xl shadow-emerald-950/20 border border-emerald-600/30">
+                <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-2xl space-y-3">
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs font-semibold uppercase tracking-wider">
+                        Sistem Terpadu
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+                        Selamat Datang di Portal PKBM Bahtera Dua
+                    </h2>
+                    <p class="text-emerald-100/80 text-sm sm:text-base">
+                        Silakan pilih salah satu portal layanan di bawah ini untuk melanjutkan.
+                    </p>
+                </div>
+            </div>
+
+            <!-- GRID 3 PORTAL UTAMA -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- PORTAL 1: PENDAFTARAN -->
+                <a href="https://pkbmbd.github.io/spmb/" target="_blank" rel="noopener noreferrer" class="group p-8 rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-white border-2 border-emerald-400 shadow-xl shadow-emerald-600/20 hover:scale-[1.03] transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-amber-400 text-emerald-950 text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider shadow">
+                        SPMB
+                    </div>
+                    <div>
+                        <div class="w-16 h-16 rounded-2xl bg-white/20 text-white flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+                        <h3 class="font-black text-2xl text-white">Portal Pendaftaran</h3>
+                        <p class="text-xs text-emerald-100 mt-2 leading-relaxed">Penerimaan Peserta Didik Baru PKBM Bahtera Dua. Isi formulir pendaftaran dan kelengkapan berkas secara daring.</p>
+                    </div>
+                    <div class="mt-8 flex items-center justify-between text-xs font-bold text-emerald-200">
+                        <span>Kunjungi Portal</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- PORTAL 2: KELAS ONLINE -->
+                <a href="https://pkbmbd.github.io/sibela/" target="_blank" rel="noopener noreferrer" class="group p-8 rounded-3xl bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 dark:hover:border-emerald-400 shadow-md hover:shadow-xl hover:scale-[1.03] transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-800/60 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3 class="font-black text-2xl text-emerald-950 dark:text-emerald-50 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Portal Kelas Online</h3>
+                        <p class="text-xs text-slate-600 dark:text-emerald-200/70 mt-2 leading-relaxed">Akses ruang belajar digital SIBELA PKBM Bahtera Dua, materi pembelajaran, jadwal, dan kegiatan akademik.</p>
+                    </div>
+                    <div class="mt-8 flex items-center justify-between text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                        <span>Masuk SIBELA</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- PORTAL 3: DOKUMENTASI KEGIATAN -->
+                <button type="button" onclick="showView('galleryView')" class="group p-8 rounded-3xl bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 dark:hover:border-emerald-400 shadow-md hover:shadow-xl hover:scale-[1.03] transition-all duration-300 flex flex-col justify-between cursor-pointer text-left w-full">
+                    <div>
+                        <div class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-800/60 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-camera-retro"></i>
+                        </div>
+                        <h3 class="font-black text-2xl text-emerald-950 dark:text-emerald-50 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Dokumentasi Kegiatan</h3>
+                        <p class="text-xs text-slate-600 dark:text-emerald-200/70 mt-2 leading-relaxed">Galeri dokumentasi video YouTube, postingan Instagram, dan Facebook PKBM Bahtera Dua.</p>
+                    </div>
+                    <div class="mt-8 flex items-center justify-between text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                        <span>Lihat Galeri Media</span>
+                        <i class="fa-solid fa-images group-hover:translate-x-1 transition"></i>
+                    </div>
+                </button>
+
+            </div>
+        </section>
+
+        <!-- HALAMAN 2: GALERI EMBED -->
+        <section id="galleryView" class="hidden space-y-8">
+            
+            <!-- TOMBOL KEMBALI & HEADER UTAMA -->
+            <div class="space-y-4 border-b border-emerald-200 dark:border-emerald-800 pb-6">
+                <div class="flex items-center justify-between">
+                    <button type="button" onclick="showView('homeView')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-100 dark:bg-emerald-800/50 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800 text-sm font-semibold transition">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Utama
+                    </button>
+                    <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400">Arsip Media Sosial</span>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-black text-emerald-950 dark:text-emerald-50">Dokumentasi Kegiatan PKBM Bahtera Dua</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-emerald-200/70 mt-1">Kumpulan dokumentasi kegiatan yang bersumber dari media sosial resmi kami.</p>
+                </div>
+            </div>
+
+            <!-- BAGIAN 1: YOUTUBE -->
+            <section class="space-y-6">
+                <div class="flex items-center gap-3 border-l-4 border-red-600 pl-3">
+                    <i class="fa-brands fa-youtube text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-emerald-950 dark:text-emerald-50">Saluran YouTube Resmi</h3>
+                        <p class="text-xs text-slate-500 dark:text-emerald-300/70">Kunjungi saluran YouTube resmi kami untuk menonton berbagai video dokumentasi kegiatan</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+                    <!-- YouTube Channel Link Card -->
+                    <a href="https://www.youtube.com/@pkbmbahteraduakotablitar" target="_blank" rel="noopener noreferrer" class="group bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 hover:border-red-500 dark:hover:border-red-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                                <i class="fa-brands fa-youtube"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-emerald-950 dark:text-emerald-50 group-hover:text-red-600 dark:group-hover:text-red-400 transition">PKBM Bahtera Dua Kota Blitar</h4>
+                                <p class="text-xs text-slate-500 dark:text-emerald-300/70 mt-0.5">Channel YouTube Resmi PKBM Bahtera Dua</p>
+                            </div>
+                        </div>
+                        <div class="pt-2 border-t border-emerald-100 dark:border-emerald-800/40 flex items-center justify-between text-xs font-semibold text-red-600 dark:text-red-400">
+                            <span>Kunjungi Channel YouTube</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- SEKAT PEMBATAS 1 -->
+            <hr class="border-emerald-200 dark:border-emerald-800/60">
+
+            <!-- BAGIAN 2: INSTAGRAM -->
+            <section class="space-y-6">
+                <div class="flex items-center gap-3 border-l-4 border-pink-600 pl-3">
+                    <i class="fa-brands fa-instagram text-2xl text-pink-600"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-emerald-950 dark:text-emerald-50">Postingan Instagram</h3>
+                        <p class="text-xs text-slate-500 dark:text-emerald-300/70">Foto dan liputan ringkas kegiatan harian</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+                    <!-- Instagram Item 1 -->
+                    <div class="bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 rounded-2xl overflow-hidden shadow-sm p-4">
+                        <div class="w-full overflow-hidden flex justify-center bg-slate-50 dark:bg-emerald-950/40 rounded-xl p-2 min-h-[300px]">
+                            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DZ2Cqowzr13/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
+                                <a href="https://www.instagram.com/p/DZ2Cqowzr13/" target="_blank" rel="noopener noreferrer">A post shared by PKBM Bahtera Dua Kota Blitar (@pkbmbahteradua)</a>
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <!-- Instagram Item 2 -->
+                    <div class="bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 rounded-2xl overflow-hidden shadow-sm p-4">
+                        <div class="w-full overflow-hidden flex justify-center bg-slate-50 dark:bg-emerald-950/40 rounded-xl p-2 min-h-[300px]">
+                            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DZ1ojU0TPAO/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
+                                <a href="https://www.instagram.com/p/DZ1ojU0TPAO/" target="_blank" rel="noopener noreferrer">A post shared by PKBM Bahtera Dua Kota Blitar (@pkbmbahteradua)</a>
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <!-- Instagram Item 3 -->
+                    <div class="bg-white dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 rounded-2xl overflow-hidden shadow-sm p-4">
+                        <div class="w-full overflow-hidden flex justify-center bg-slate-50 dark:bg-emerald-950/40 rounded-xl p-2 min-h-[300px]">
+                            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DWkdis0k5RY/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
+                                <a href="https://www.instagram.com/p/DWkdis0k5RY/" target="_blank" rel="noopener noreferrer">A post shared by PKBM Bahtera Dua Kota Blitar (@pkbmbahteradua)</a>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEKAT PEMBATAS 2 -->
+            <hr class="border-emerald-200 dark:border-emerald-800/60">
+
+            <!-- BAGIAN 3: FACEBOOK -->
+            <section class="space-y-6">
+                <!-- Kosong: Hanya garis sekat yang muncul -->
+            </section>
+
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: TENTANG KAMI -->
+    <div id="aboutModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
+        <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-center border-b border-emerald-100 dark:border-emerald-800 pb-4 sticky top-0 bg-white dark:bg-emerald-900 z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-emerald-950 dark:text-emerald-50">Portofolio Lembaga</h3>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400">PKBM Bahtera Dua Kota Blitar</p>
+                    </div>
+                </div>
+                <button type="button" onclick="toggleModal('aboutModal')" class="text-slate-400 hover:text-emerald-500 text-xl" aria-label="Tutup Modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Profil Singkat -->
+            <div class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-emerald-200/80 leading-relaxed">
+                <p>
+                    <strong>Pusat Kegiatan Belajar Masyarakat (PKBM) Bahtera Dua Kota Blitar</strong> merupakan lembaga pendidikan nonformal yang berkomitmen memberikan akses pendidikan berkualitas, inklusif, dan fleksibel bagi seluruh lapisan masyarakat.
+                </p>
+            </div>
+
+            <!-- Program Layanan -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Program Layanan Pendidikan</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200/60 dark:border-emerald-800/60">
+                        <div class="font-bold text-xs text-emerald-900 dark:text-emerald-100"><i class="fa-solid fa-graduation-cap text-emerald-600 mr-1.5"></i> Paket A</div>
+                        <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 mt-1">Setara Sekolah Dasar (SD)</p>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200/60 dark:border-emerald-800/60">
+                        <div class="font-bold text-xs text-emerald-900 dark:text-emerald-100"><i class="fa-solid fa-graduation-cap text-emerald-600 mr-1.5"></i> Paket B</div>
+                        <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 mt-1">Setara SMP</p>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200/60 dark:border-emerald-800/60">
+                        <div class="font-bold text-xs text-emerald-900 dark:text-emerald-100"><i class="fa-solid fa-graduation-cap text-emerald-600 mr-1.5"></i> Paket C</div>
+                        <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 mt-1">Setara SMA/SMK</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keunggulan & Inovasi -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Keunggulan & Inovasi</h4>
+                <ul class="space-y-2 text-xs text-slate-600 dark:text-emerald-200/80">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mt-0.5"></i>
+                        <span><strong>Sistem SIBELA Digital:</strong> Platform pembelajaran mandiri terpadu dan fleksibel yang dapat diakses dari mana saja.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mt-0.5"></i>
+                        <span><strong>Pengembangan Keterampilan & Vokasi:</strong> Pembekalan wirausaha dan keahlian praktis sesuai kebutuhan dunia kerja modern.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mt-0.5"></i>
+                        <span><strong>SPMB Daring & Transparan:</strong> Proses pendaftaran siswa baru yang serba mudah, praktis, dan berbasis teknologi.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pt-4 border-t border-emerald-100 dark:border-emerald-800 flex justify-end">
+                <button type="button" onclick="toggleModal('aboutModal')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-xs font-semibold transition">Tutup Portofolio</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: CONTACT PERSON -->
+    <div id="contactModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
+        <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-center border-b border-emerald-100 dark:border-emerald-800 pb-4 sticky top-0 bg-white dark:bg-emerald-900 z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-emerald-950 dark:text-emerald-50">Pusat Layanan Kontak</h3>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400">PKBM Bahtera Dua Kota Blitar</p>
+                    </div>
+                </div>
+                <button type="button" onclick="toggleModal('contactModal')" class="text-slate-400 hover:text-emerald-500 text-xl" aria-label="Tutup Modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="space-y-5">
+
+                <!-- 1. TELEPON UTAMA (LEMBAGA) -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Telepon Resmi Kantor</h4>
+                    <a href="tel:03424557038" class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md hover:shadow-lg hover:scale-[1.01] transition group">
+                        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl shrink-0">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold text-emerald-100">Panggilan Telepon Lembaga</p>
+                            <p class="text-base font-black tracking-wide text-white">(0342) 455 70 38</p>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg bg-white/20 text-xs font-bold flex items-center gap-1">
+                            <span>Panggil</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 2. GRID 6 ADMIN WHATSAPP DENGAN NAMA -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Admin Whatsapp (6 Pilihan)</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        
+                        <!-- Admin 1: Mualim -->
+                        <a href="https://wa.me/6285736177819" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 1 - Mualim</p>
+                                <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0857-3617-7819</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+                        <!-- Admin 2: Risdianto -->
+                        <a href="https://wa.me/6285735918997" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 2 - Risdianto</p>
+                                <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0857-3591-8997</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+                        <!-- Admin 3: Erlina -->
+                        <a href="https://wa.me/6285649053749" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 3 - Erlina</p>
+                                <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0856-4905-3749</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+                        <!-- Admin 4: Ryan -->
+                        <a href="https://wa.me/6285646454463" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 4 - Ryan</p>
+                                <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0856-4645-4463</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+                        <!-- Admin 5: Irul -->
+                        <a href="https://wa.me/6289531862670" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 5 - Irul</p>
+                                <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0895-3186-2670</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+                        <!-- Admin 6: Nanda -->
+                        <a href="https://wa.me/6285735817888" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 border border-emerald-200/60 dark:border-emerald-800/60 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-green-500 text-white flex items-center justify-center text-base shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Admin 6 - Nanda</p>
+                                <p class="text-[11px] text-slate-500 dark:text-emerald-300/70 truncate">0857-3581-7888</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- 3. MEDIA SOSIAL & EMAIL -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Media Sosial & Email</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/@pkbmbahteraduakotablitar" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/40 border border-red-200/60 dark:border-red-800/40 transition group">
+                            <div class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center text-sm shrink-0">
+                                <i class="fa-brands fa-youtube"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">YouTube</p>
+                                <p class="text-[10px] text-slate-500 dark:text-emerald-300/70 truncate">@pkbmbahteradua...</p>
+                            </div>
+                        </a>
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/pkbmbahteradua" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-pink-50 dark:bg-pink-950/30 hover:bg-pink-100 dark:hover:bg-pink-900/40 border border-pink-200/60 dark:border-pink-800/40 transition group">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 text-white flex items-center justify-center text-sm shrink-0">
+                                <i class="fa-brands fa-instagram"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Instagram</p>
+                                <p class="text-[10px] text-slate-500 dark:text-emerald-300/70 truncate">@pkbmbahteradua</p>
+                            </div>
+                        </a>
+
+                        <!-- Email -->
+                        <a href="mailto:bahteradua.kotablitar@gmail.com" class="flex items-center gap-3 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-900/40 border border-amber-200/60 dark:border-amber-800/40 transition group">
+                            <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-sm shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-emerald-950 dark:text-emerald-100 truncate">Email Resmi</p>
+                                <p class="text-[10px] text-slate-500 dark:text-emerald-300/70 truncate">bahteradua.kotablitar...</p>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-4 border-t border-emerald-100 dark:border-emerald-800 flex justify-end">
+                <button type="button" onclick="toggleModal('contactModal')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-xs font-semibold transition">Tutup Kontak</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-emerald-200 dark:border-emerald-800/60 py-6 text-center text-xs text-emerald-700 dark:text-emerald-400">
+        <p>© 2026 PKBM Bahtera Dua Kota Blitar. Seluruh Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Switch Halaman Single Page
+        function showView(viewId) {
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('galleryView').classList.add('hidden');
+
+            const selectedView = document.getElementById(viewId);
+            if (selectedView) {
+                selectedView.classList.remove('hidden');
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Trigger re-parse embed Instagram & Facebook saat masuk ke galeri
+            if (viewId === 'galleryView') {
+                if (window.instgrm && window.instgrm.Embeds) {
+                    window.instgrm.Embeds.process();
+                }
+                if (window.FB && window.FB.XFBML) {
+                    window.FB.XFBML.parse();
+                }
+            }
+        }
+
+        // Dark Mode Toggle dengan LocalStorage
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        function updateThemeUI(isDark) {
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                htmlElement.classList.remove('dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            updateThemeUI(true);
+        } else {
+            updateThemeUI(false);
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeIcon.classList.toggle('fa-moon', !isDark);
+            themeIcon.classList.toggle('fa-sun', isDark);
+        });
+
+        // Modal Handler
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
