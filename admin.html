@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - PKBM Bahtera Dua</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-emerald-50 dark:bg-emerald-950 text-slate-800 dark:text-emerald-100 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="border-b border-emerald-200 dark:border-emerald-800/60 bg-white/80 dark:bg-emerald-900/40 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-emerald-600/20 border border-emerald-500/30 shrink-0 p-1">
+                    <img 
+                        src="https://raw.githubusercontent.com/pkbmbd/spmb/refs/heads/main/0.%20Logo%20PKBM%20Bahtera%20Dua.png" 
+                        alt="Logo PKBM Bahtera Dua" 
+                        class="w-full h-full object-contain"
+                        onerror="this.onerror=null; this.src='https://via.placeholder.com/150/059669/FFFFFF?text=LOGO';"
+                    />
+                </div>
+                <div>
+                    <h1 class="font-black text-xl tracking-tight text-emerald-950 dark:text-emerald-50">PANEL ADMIN</h1>
+                    <p class="text-xs font-medium text-emerald-600 dark:text-emerald-400">PKBM Bahtera Dua Kota Blitar</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button type="button" onclick="loadDataFromSheet()" title="Sinkronkan Data" class="p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-800/50 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800 transition">
+                    <i class="fa-solid fa-rotate text-base" id="syncIcon"></i>
+                </button>
+                <button type="button" id="themeToggle" class="p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-800/50 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800 transition">
+                    <i id="themeIcon" class="fa-solid fa-moon text-base"></i>
+                </button>
+                <!-- Tombol Keluar dengan Konfirmasi -->
+                <button type="button" onclick="confirmLogout()" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 hover:bg-red-200 transition flex items-center gap-2">
+                    <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- TAB NAVIGATION UTAMA -->
+        <div class="flex flex-wrap border-b border-emerald-200 dark:border-emerald-800/60 gap-2">
+            <button onclick="switchTab('pendaftaran')" id="tab-pendaftaran" class="px-5 py-3 rounded-t-2xl font-bold text-sm transition border-b-2 border-emerald-600 text-emerald-700 dark:text-emerald-300 bg-white dark:bg-emerald-900/40 flex items-center gap-2">
+                <i class="fa-solid fa-users text-base"></i> Rekap Pendaftaran
+            </button>
+            <button onclick="switchTab('tutor')" id="tab-tutor" class="px-5 py-3 rounded-t-2xl font-bold text-sm transition border-b-2 border-transparent text-slate-500 hover:text-emerald-600 dark:text-emerald-200/60 flex items-center gap-2">
+                <i class="fa-solid fa-chalkboard-user text-base"></i> Kelola Data Pendidik
+            </button>
+        </div>
+
+        <!-- TAB 1: REKAP PENDAFTARAN -->
+        <section id="content-pendaftaran" class="space-y-6">
+            
+            <!-- RINGKASAN CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="p-5 rounded-2xl bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 dark:text-emerald-300/70">Total Pendaftar</p>
+                        <h3 id="totalPendaftar" class="text-2xl font-black text-emerald-950 dark:text-emerald-50 mt-1">0</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-800/50 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </div>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 dark:text-emerald-300/70">Menunggu Verifikasi</p>
+                        <h3 id="totalPending" class="text-2xl font-black text-amber-500 mt-1">0</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 dark:text-emerald-300/70">Status Diterima</p>
+                        <h3 id="totalDiterima" class="text-2xl font-black text-green-600 dark:text-green-400 mt-1">0</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-950/50 text-green-600 dark:text-green-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLE REKAP DATA -->
+            <div class="bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 rounded-3xl overflow-hidden shadow-sm">
+                
+                <div class="p-6 border-b border-emerald-100 dark:border-emerald-800 space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-emerald-950 dark:text-emerald-50">Data Calon Peserta Didik</h3>
+                            <p class="text-xs text-slate-500 dark:text-emerald-300/70">Klik pada nama pendaftar untuk melihat rincian instrumen lengkap dari Spreadsheet.</p>
+                        </div>
+                        <input type="text" id="searchPendaftar" onkeyup="filterPendaftar()" placeholder="Cari nama atau WhatsApp..." class="px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs focus:outline-none focus:border-emerald-500 text-emerald-950 dark:text-emerald-100 w-full sm:w-64">
+                    </div>
+
+                    <!-- SUB TABS FILTER STATUS & JENJANG -->
+                    <div class="flex flex-wrap gap-2 border-b border-emerald-100 dark:border-emerald-800/40 pb-2">
+                        <button onclick="switchSubTab('proses')" id="subtab-proses" class="pb-2 px-3 text-xs font-bold border-b-2 border-emerald-600 text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+                            <i class="fa-solid fa-hourglass-half"></i> Dalam Proses 
+                            <span id="badge-proses-count" class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-[10px]">0</span>
+                        </button>
+                        <button onclick="switchSubTab('diterima')" id="subtab-diterima" class="pb-2 px-3 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-emerald-600 dark:text-emerald-300/60 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> Pendaftar Diterima 
+                            <span id="badge-diterima-count" class="px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-[10px]">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-600 dark:text-emerald-200/80">
+                        <thead class="bg-emerald-100/50 dark:bg-emerald-950/60 uppercase font-black text-emerald-900 dark:text-emerald-300">
+                            <tr>
+                                <th class="p-4">Nama Lengkap</th>
+                                <th class="p-4">Jenjang (Asal Tab)</th>
+                                <th class="p-4">No. HP / WhatsApp</th>
+                                <th class="p-4 text-center">Status Verifikasi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendaftarTable" class="divide-y divide-emerald-100 dark:divide-emerald-800/40">
+                            <!-- Data JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: KELOLA PENDIDIK / TUTOR -->
+        <section id="content-tutor" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 class="font-bold text-lg text-emerald-950 dark:text-emerald-50 flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus text-emerald-600"></i> Tambah Data Pendidik
+                    </h3>
+                    
+                    <form onsubmit="addTutor(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-200 mb-1">Nama Lengkap & Gelar</label>
+                            <input type="text" id="tutorNama" required placeholder="Contoh: Budi Santoso, S.Pd." class="w-full px-4 py-2.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs focus:outline-none focus:border-emerald-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-200 mb-1">Pendidikan Terakhir</label>
+                            <select id="tutorPendidikan" required class="w-full px-4 py-2.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs focus:outline-none focus:border-emerald-500 text-emerald-950 dark:text-emerald-100">
+                                <option value="">-- Pilih Pendidikan --</option>
+                                <option value="SMA/SMK Sederajat">SMA/SMK Sederajat</option>
+                                <option value="D3">D3</option>
+                                <option value="S1">S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-200 mb-1">Jenjang Mengajar</label>
+                            <select id="tutorJenjang" required class="w-full px-4 py-2.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs focus:outline-none focus:border-emerald-500 text-emerald-950 dark:text-emerald-100">
+                                <option value="">-- Pilih Jenjang --</option>
+                                <option value="Paket A (Setara SD)">Paket A (Setara SD)</option>
+                                <option value="Paket B (Setara SMP)">Paket B (Setara SMP)</option>
+                                <option value="Paket C (Setara SMA)">Paket C (Setara SMA)</option>
+                                <option value="Semua Jenjang">Semua Jenjang</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-200 mb-1">Mata Pelajaran</label>
+                            <input type="text" id="tutorMapel" required placeholder="Contoh: Matematika, Bahasa Indonesia" class="w-full px-4 py-2.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs focus:outline-none focus:border-emerald-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-200 mb-1">No. WhatsApp</label>
+                            <input type="tel" id="tutorWA" required placeholder="Contoh: 08123456789" class="w-full px-4 py-2.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs focus:outline-none focus:border-emerald-500">
+                        </div>
+
+                        <button type="submit" id="btnSubmitTutor" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition">
+                            <i class="fa-solid fa-plus mr-1"></i> Simpan Data Pendidik
+                        </button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-2 bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 class="font-bold text-lg text-emerald-950 dark:text-emerald-50">Daftar Pendidik Aktif (Tab: Pendidik)</h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-600 dark:text-emerald-200/80">
+                            <thead class="bg-emerald-100/50 dark:bg-emerald-950/60 uppercase font-black text-emerald-900 dark:text-emerald-300">
+                                <tr>
+                                    <th class="p-3">Nama Pendidik</th>
+                                    <th class="p-3">Pendidikan</th>
+                                    <th class="p-3">Jenjang</th>
+                                    <th class="p-3">Mata Pelajaran</th>
+                                    <th class="p-3">WhatsApp</th>
+                                    <th class="p-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tutorTable" class="divide-y divide-emerald-100 dark:divide-emerald-800/40">
+                                <!-- Data JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DETAIL INSTRUMEN PENDAFTAR -->
+    <div id="detailModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-2xl w-full shadow-2xl overflow-hidden transform transition-all flex flex-col max-h-[90vh]">
+            
+            <div class="p-6 border-b border-emerald-100 dark:border-emerald-800 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-300 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-user-graduate text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-emerald-950 dark:text-emerald-50">Rincian Lengkap Pendaftar</h3>
+                        <p id="modalTabName" class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">Asal Tab: -</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-800/50 text-slate-500 dark:text-emerald-200 hover:bg-emerald-200 transition flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 space-y-6 text-xs overflow-y-auto flex-1">
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-3 bg-emerald-50/50 dark:bg-emerald-950/50 rounded-xl border border-emerald-100 dark:border-emerald-800">
+                        <p class="text-[10px] uppercase font-bold text-slate-400 dark:text-emerald-400">Waktu / Tanggal Daftar</p>
+                        <p id="modalTanggal" class="font-semibold text-emerald-950 dark:text-emerald-100 mt-0.5">-</p>
+                    </div>
+                    <div class="p-3 bg-emerald-50/50 dark:bg-emerald-950/50 rounded-xl border border-emerald-100 dark:border-emerald-800">
+                        <p class="text-[10px] uppercase font-bold text-slate-400 dark:text-emerald-400">NIK / Identitas</p>
+                        <p id="modalNIK" class="font-semibold text-emerald-950 dark:text-emerald-100 mt-0.5">-</p>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-emerald-100/40 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200 dark:border-emerald-800 space-y-2">
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-200">Ubah Status Pendaftaran (Kolom A Sheet)</label>
+                    <div class="flex gap-2">
+                        <select id="modalStatusSelect" class="flex-1 px-3 py-2 rounded-xl bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-800 text-xs focus:outline-none focus:border-emerald-500 font-semibold text-emerald-950 dark:text-emerald-100">
+                            <option value="Proses Verifikasi">Proses Verifikasi</option>
+                            <option value="Diterima">Diterima (Terdaftar)</option>
+                            <option value="Ditolak">Ditolak</option>
+                        </select>
+                        <button id="btnSaveStatus" onclick="saveStatusFromModal()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-md">
+                            Simpan Status
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-bold text-xs text-emerald-950 dark:text-emerald-200 uppercase tracking-wider border-b border-emerald-100 dark:border-emerald-800 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-emerald-600"></i> Seluruh Instrumen Spreadsheet Tab
+                    </h4>
+                    <div id="dynamicInstrumentContainer" class="divide-y divide-emerald-100 dark:divide-emerald-800/40 border border-emerald-100 dark:border-emerald-800/60 rounded-2xl p-3 bg-white dark:bg-emerald-950/30">
+                        <!-- Generasi Baris Data Dinamis oleh JS -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI KELUAR -->
+    <div id="logoutModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5 text-center transform transition-all">
+            <div class="w-16 h-16 rounded-full bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+            <div class="space-y-1">
+                <h3 class="text-lg font-bold text-emerald-950 dark:text-emerald-50">Konfirmasi Keluar</h3>
+                <p class="text-xs text-slate-500 dark:text-emerald-300/70">Apakah Anda yakin ingin keluar dari Panel Admin?</p>
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button onclick="closeLogoutModal()" class="flex-1 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 text-slate-600 dark:text-emerald-200 font-bold text-xs hover:bg-emerald-50 dark:hover:bg-emerald-800/50 transition">
+                    Batal
+                </button>
+                <a href="https://pkbmbd.github.io/dashboard/" class="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition shadow-md flex items-center justify-center">
+                    Ya, Keluar
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-emerald-200 dark:border-emerald-800/60 py-6 text-center text-xs text-emerald-700 dark:text-emerald-400">
+        <p>© 2026 PKBM Bahtera Dua Kota Blitar. Seluruh Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        let currentSubTab = 'proses';
+        let activeSelectedId = null;
+        
+        let SCRIPT_URL = localStorage.getItem('sheet_api_url') || "";
+
+        let pendaftarData = [
+            { 
+                id: 1, 
+                jenjangTab: "Paket C",
+                tanggal: "2026-02-10 09:30:00", 
+                nik: "3505123456780001",
+                nama: "Ahmad Fauzi", 
+                program: "Paket C", 
+                ttl: "Blitar, 12 Mei 2005",
+                alamat: "Jl. Merdeka No. 45, Sananwetan, Kota Blitar",
+                wa: "081234567890", 
+                status: "Diterima",
+                rawFields: {
+                    "Status Pendaftaran": "Diterima",
+                    "Waktu Pendaftaran": "2026-02-10 09:30:00",
+                    "NIK": "3505123456780001",
+                    "Nama Lengkap": "Ahmad Fauzi",
+                    "Jenjang Pendaftaran": "Paket C",
+                    "Tempat, Tanggal Lahir": "Blitar, 12 Mei 2005",
+                    "Alamat Lengkap": "Jl. Merdeka No. 45, Sananwetan, Kota Blitar",
+                    "No. HP/WA": "081234567890",
+                    "Pas Foto 3x4": "https://drive.google.com",
+                    "Kartu Keluarga": "https://drive.google.com",
+                    "Link folder drive bersama": "https://drive.google.com"
+                }
+            }
+        ];
+
+        let tutorData = [
+            { id: 1, nama: "Mualim, S.Pd.", pendidikan: "S1", jenjang: "Paket C (Setara SMA)", mapel: "Bahasa Indonesia", wa: "085736177819" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (SCRIPT_URL) {
+                loadDataFromSheet();
+            } else {
+                renderPendaftarTable();
+                renderTutorTable();
+            }
+        });
+
+        // FUNGSI LOGOUT DENGAN DIALOG KONFIRMASI
+        function confirmLogout() {
+            document.getElementById('logoutModal').classList.remove('hidden');
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.add('hidden');
+        }
+
+        function loadDataFromSheet() {
+            if (!SCRIPT_URL) return;
+
+            const syncIcon = document.getElementById('syncIcon');
+            if (syncIcon) syncIcon.classList.add('fa-spin');
+
+            fetch(SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    let allPendaftar = [];
+                    const pendaftaranTabs = ["Paket A", "Paket B", "Paket C"];
+                    let globalId = 1;
+
+                    pendaftaranTabs.forEach(tabName => {
+                        if (data[tabName] && Array.isArray(data[tabName])) {
+                            data[tabName].forEach(item => {
+                                const waktuDaftar = item["Waktu Pendaftaran"] || item["waktu pendaftaran"] || item["Timestamp"] || item["Tanggal Daftar"] || item["Tanggal"] || item.tanggal || "-";
+                                const noWA = item["No. HP/WA"] || item["no. hp/wa"] || item["No HP/WA"] || item["No. HP / WA"] || item["No HP / WhatsApp"] || item["WhatsApp"] || item["No WA"] || item["wa"] || "-";
+                                const statusPendaftaran = item["Status Pendaftaran"] || item["status pendaftaran"] || item["Status Verifikasi"] || item["Status"] || item.status || "Proses Verifikasi";
+
+                                allPendaftar.push({
+                                    id: globalId++,
+                                    jenjangTab: tabName,
+                                    tanggal: waktuDaftar,
+                                    nik: item["NIK"] || item["No KTP"] || item.nik || "-",
+                                    nama: item["Nama Lengkap"] || item["Nama"] || item.nama || "-",
+                                    program: tabName,
+                                    ttl: item["Tempat, Tanggal Lahir"] || item["TTL"] || item.ttl || "-",
+                                    alamat: item["Alamat Lengkap"] || item["Alamat"] || item.alamat || "-",
+                                    wa: String(noWA),
+                                    status: statusPendaftaran,
+                                    rawFields: item
+                                });
+                            });
+                        }
+                    });
+                    
+                    if(allPendaftar.length > 0) {
+                        pendaftarData = allPendaftar;
+                    }
+
+                    if (data["Pendidik"] && Array.isArray(data["Pendidik"])) {
+                        tutorData = data["Pendidik"].map((item, index) => {
+                            let namaPendidik = "-";
+                            for (let key in item) {
+                                if (key.toLowerCase().includes("nama")) {
+                                    namaPendidik = item[key];
+                                    break;
+                                }
+                            }
+
+                            let waPendidik = "-";
+                            for (let key in item) {
+                                const k = key.toLowerCase();
+                                if (k.includes("hp") || k.includes("wa") || k.includes("telepon") || k.includes("whatsapp")) {
+                                    waPendidik = item[key];
+                                    break;
+                                }
+                            }
+
+                            return {
+                                id: index + 1,
+                                nama: namaPendidik !== "" ? namaPendidik : "-",
+                                pendidikan: item["Pendidikan Terakhir"] || item["Pendidikan"] || item.pendidikan || "-",
+                                jenjang: item["Jenjang Mengajar"] || item["Jenjang"] || item.jenjang || "-",
+                                mapel: item["Mata Pelajaran"] || item["Mapel"] || item.mapel || "-",
+                                wa: String(waPendidik !== "" ? waPendidik : "-")
+                            };
+                        });
+                    }
+
+                    renderPendaftarTable();
+                    renderTutorTable();
+                })
+                .catch(err => console.error("Gagal memuat data dari Spreadsheet:", err))
+                .finally(() => {
+                    if (syncIcon) syncIcon.classList.remove('fa-spin');
+                });
+        }
+
+        function switchTab(tabName) {
+            ['pendaftaran', 'tutor'].forEach(t => {
+                document.getElementById(`content-${t}`).classList.add('hidden');
+                const btn = document.getElementById(`tab-${t}`);
+                btn.classList.remove('border-emerald-600', 'text-emerald-700', 'dark:text-emerald-300', 'bg-white', 'dark:bg-emerald-900/40');
+                btn.classList.add('border-transparent', 'text-slate-500');
+            });
+
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.classList.remove('border-transparent', 'text-slate-500');
+            activeBtn.classList.add('border-emerald-600', 'text-emerald-700', 'dark:text-emerald-300', 'bg-white', 'dark:bg-emerald-900/40');
+        }
+
+        function switchSubTab(subTabName) {
+            currentSubTab = subTabName;
+            
+            const btnProses = document.getElementById('subtab-proses');
+            const btnDiterima = document.getElementById('subtab-diterima');
+
+            if (subTabName === 'proses') {
+                btnProses.className = "pb-2 px-3 text-xs font-bold border-b-2 border-emerald-600 text-emerald-600 dark:text-emerald-400 flex items-center gap-2";
+                btnDiterima.className = "pb-2 px-3 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-emerald-600 dark:text-emerald-300/60 flex items-center gap-2";
+            } else {
+                btnDiterima.className = "pb-2 px-3 text-xs font-bold border-b-2 border-emerald-600 text-emerald-600 dark:text-emerald-400 flex items-center gap-2";
+                btnProses.className = "pb-2 px-3 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-emerald-600 dark:text-emerald-300/60 flex items-center gap-2";
+            }
+
+            renderPendaftarTable();
+        }
+
+        function renderPendaftarTable() {
+            const tbody = document.getElementById('pendaftarTable');
+            tbody.innerHTML = '';
+
+            let countDiterima = 0;
+            let countProses = 0;
+
+            pendaftarData.forEach(item => {
+                if(item.status === 'Diterima') countDiterima++;
+                if(item.status === 'Proses Verifikasi' || item.status === 'Ditolak') countProses++;
+            });
+
+            document.getElementById('totalPendaftar').innerText = pendaftarData.length;
+            document.getElementById('totalDiterima').innerText = countDiterima;
+            document.getElementById('totalPending').innerText = countProses;
+            document.getElementById('badge-proses-count').innerText = countProses;
+            document.getElementById('badge-diterima-count').innerText = countDiterima;
+
+            const filteredData = pendaftarData.filter(item => {
+                if (currentSubTab === 'diterima') {
+                    return item.status === 'Diterima';
+                } else {
+                    return item.status !== 'Diterima';
+                }
+            });
+
+            if (filteredData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="p-8 text-center text-slate-400 dark:text-emerald-400/50 italic">
+                            Tidak ada data pendaftar ${currentSubTab === 'diterima' ? 'yang diterima' : 'dalam proses'}.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            filteredData.forEach(item => {
+                let badgeClass = item.status === 'Diterima' 
+                    ? 'bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300' 
+                    : (item.status === 'Ditolak' ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300');
+
+                const cleanWA = String(item.wa).replace(/[^0-9]/g, '');
+                const formattedWA = cleanWA.startsWith('0') ? '62' + cleanWA.slice(1) : cleanWA;
+                const waUrl = `https://wa.me/${formattedWA}`;
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-emerald-100/40 dark:hover:bg-emerald-800/30 transition cursor-pointer" onclick="openDetailModal(${item.id})">
+                        <td class="p-4 font-bold text-emerald-950 dark:text-emerald-100 flex items-center gap-2">
+                            <span>${item.nama}</span>
+                            <i class="fa-solid fa-circle-info text-emerald-500 opacity-60 text-[11px]"></i>
+                        </td>
+                        <td class="p-4 font-semibold text-emerald-800 dark:text-emerald-300">${item.jenjangTab}</td>
+                        <td class="p-4 font-mono" onclick="event.stopPropagation()">
+                            <a href="${waUrl}" target="_blank" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline flex items-center gap-1">
+                                <i class="fa-brands fa-whatsapp text-sm text-green-500"></i> ${item.wa}
+                            </a>
+                        </td>
+                        <td class="p-4 text-center">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${badgeClass}">
+                                ${item.status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openDetailModal(id) {
+            const pendaftar = pendaftarData.find(item => item.id === id);
+            if (!pendaftar) return;
+
+            activeSelectedId = id;
+
+            document.getElementById('modalTabName').innerText = `Asal Tab: ${pendaftar.jenjangTab}`;
+            document.getElementById('modalTanggal').innerText = pendaftar.tanggal;
+            document.getElementById('modalNIK').innerText = pendaftar.nik || '-';
+            document.getElementById('modalStatusSelect').value = pendaftar.status;
+
+            const container = document.getElementById('dynamicInstrumentContainer');
+            container.innerHTML = '';
+
+            const rawFields = pendaftar.rawFields || pendaftar;
+            
+            Object.keys(rawFields).forEach(key => {
+                if (key === 'id' || key === 'rawFields' || key === 'jenjangTab') return;
+
+                const val = rawFields[key] !== "" && rawFields[key] !== undefined && rawFields[key] !== null 
+                    ? rawFields[key] 
+                    : '-';
+
+                let valDisplay = val;
+                const lowerKey = key.toLowerCase();
+
+                if (
+                    lowerKey.includes('foto') || 
+                    lowerKey.includes('keluarga') || 
+                    lowerKey.includes('akta') || 
+                    lowerKey.includes('ktp') || 
+                    lowerKey.includes('ijazah') || 
+                    lowerKey.includes('drive') || 
+                    lowerKey.includes('folder') ||
+                    String(val).startsWith('http://') || 
+                    String(val).startsWith('https://')
+                ) {
+                    if (val !== '-' && (String(val).startsWith('http://') || String(val).startsWith('https://'))) {
+                        valDisplay = `<a href="${val}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-emerald-200 font-bold hover:bg-emerald-200 dark:hover:bg-emerald-700 transition">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Link / Berkas
+                        </a>`;
+                    }
+                } 
+                else if (lowerKey.includes('wa') || lowerKey.includes('whatsapp') || lowerKey.includes('hp')) {
+                    if (!lowerKey.includes('waktu')) {
+                        const clean = String(val).replace(/[^0-9]/g, '');
+                        if (clean.length > 5) {
+                            const formatted = clean.startsWith('0') ? '62' + clean.slice(1) : clean;
+                            valDisplay = `<a href="https://wa.me/${formatted}" target="_blank" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline flex items-center justify-end gap-1"><i class="fa-brands fa-whatsapp text-green-500 text-sm"></i> ${val}</a>`;
+                        }
+                    }
+                }
+
+                container.innerHTML += `
+                    <div class="py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
+                        <span class="text-slate-500 dark:text-emerald-300/70 font-medium">${key}</span>
+                        <span class="font-bold text-emerald-950 dark:text-emerald-100 text-left sm:text-right sm:max-w-xs break-words">${valDisplay}</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+            activeSelectedId = null;
+        }
+
+        function saveStatusFromModal() {
+            if (activeSelectedId === null) return;
+            
+            const newStatus = document.getElementById('modalStatusSelect').value;
+            const index = pendaftarData.findIndex(item => item.id === activeSelectedId);
+            
+            if (index !== -1) {
+                const pendaftar = pendaftarData[index];
+                pendaftar.status = newStatus;
+                if (pendaftar.rawFields) {
+                    pendaftar.rawFields["Status Pendaftaran"] = newStatus;
+                }
+                
+                const btnSave = document.getElementById('btnSaveStatus');
+                btnSave.innerText = "Menyimpan...";
+                btnSave.disabled = true;
+
+                if (SCRIPT_URL) {
+                    fetch(SCRIPT_URL, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            action: "updateStatus",
+                            jenjang: pendaftar.jenjangTab,
+                            nama: pendaftar.nama,
+                            status: newStatus
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(() => console.log("Status berhasil diperbarui di Spreadsheet"))
+                    .catch(err => console.error("Gagal memperbarui spreadsheet:", err))
+                    .finally(() => {
+                        btnSave.innerText = "Simpan Status";
+                        btnSave.disabled = false;
+                        renderPendaftarTable();
+                        closeModal();
+                    });
+                } else {
+                    btnSave.innerText = "Simpan Status";
+                    btnSave.disabled = false;
+                    renderPendaftarTable();
+                    closeModal();
+                }
+            }
+        }
+
+        function filterPendaftar() {
+            const query = document.getElementById('searchPendaftar').value.toLowerCase();
+            const rows = document.querySelectorAll('#pendaftarTable tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        function renderTutorTable() {
+            const tbody = document.getElementById('tutorTable');
+            tbody.innerHTML = '';
+            
+            if (tutorData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="p-8 text-center text-slate-400 dark:text-emerald-400/50 italic">
+                            Belum ada data pendidik di tab Pendidik.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tutorData.forEach(tutor => {
+                const cleanWA = String(tutor.wa).replace(/[^0-9]/g, '');
+                const formattedWA = cleanWA.startsWith('0') ? '62' + cleanWA.slice(1) : cleanWA;
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-emerald-50/50 dark:hover:bg-emerald-950/30 transition">
+                        <td class="p-3 font-bold text-emerald-950 dark:text-emerald-100">${tutor.nama}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[10px]">${tutor.pendidikan}</span></td>
+                        <td class="p-3">${tutor.jenjang}</td>
+                        <td class="p-3 font-medium">${tutor.mapel}</td>
+                        <td class="p-3 font-mono">
+                            <a href="https://wa.me/${formattedWA}" target="_blank" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline flex items-center gap-1">
+                                <i class="fa-brands fa-whatsapp text-sm text-green-500"></i> ${tutor.wa}
+                            </a>
+                        </td>
+                        <td class="p-3 text-center">
+                            <button onclick="deleteTutor(${tutor.id})" class="text-red-500 hover:text-red-700 p-1">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function addTutor(event) {
+            event.preventDefault();
+            
+            const newNama = document.getElementById('tutorNama').value.trim();
+            const newPendidikan = document.getElementById('tutorPendidikan').value;
+            const newJenjang = document.getElementById('tutorJenjang').value;
+            const newMapel = document.getElementById('tutorMapel').value.trim();
+            const newWA = document.getElementById('tutorWA').value.trim();
+
+            const btnSubmit = document.getElementById('btnSubmitTutor');
+            btnSubmit.innerText = "Menyimpan...";
+            btnSubmit.disabled = true;
+
+            if (SCRIPT_URL) {
+                fetch(SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        action: "addTutor",
+                        "Nama Lengkap": newNama,
+                        "Pendidikan Terakhir": newPendidikan,
+                        "Jenjang Mengajar": newJenjang,
+                        "Mata Pelajaran": newMapel,
+                        "No. HP/WA": newWA
+                    })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    alert(res.message || "Tutor berhasil ditambahkan!");
+                    loadDataFromSheet();
+                    event.target.reset();
+                })
+                .catch(err => alert("Gagal menambahkan tutor: " + err))
+                .finally(() => {
+                    btnSubmit.innerText = "Simpan Data Pendidik";
+                    btnSubmit.disabled = false;
+                });
+            } else {
+                tutorData.push({
+                    id: Date.now(),
+                    nama: newNama,
+                    pendidikan: newPendidikan,
+                    jenjang: newJenjang,
+                    mapel: newMapel,
+                    wa: newWA
+                });
+                renderTutorTable();
+                event.target.reset();
+                btnSubmit.innerText = "Simpan Data Pendidik";
+                btnSubmit.disabled = false;
+            }
+        }
+
+        function deleteTutor(id) {
+            if(confirm('Apakah Anda yakin ingin menghapus data pendidik ini?')) {
+                tutorData = tutorData.filter(t => t.id !== id);
+                renderTutorTable();
+            }
+        }
+
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        function updateThemeUI(isDark) {
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                htmlElement.classList.remove('dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            updateThemeUI(true);
+        } else {
+            updateThemeUI(false);
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeIcon.classList.toggle('fa-moon', !isDark);
+            themeIcon.classList.toggle('fa-sun', isDark);
+        });
+    </script>
+</body>
+</html>
