@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Mengajar Tutor - PKBM Bahtera Dua</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7',
+                            400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857',
+                            800: '#065f46', 900: '#064e3b', 950: '#022c22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-emerald-50 dark:bg-emerald-950 text-slate-800 dark:text-emerald-100 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="border-b border-emerald-200 dark:border-emerald-800/60 bg-white/80 dark:bg-emerald-900/40 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 focus:outline-none">
+                <div class="w-12 h-12 rounded-2xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-emerald-600/20 border border-emerald-500/30 shrink-0 p-1">
+                    <img src="https://raw.githubusercontent.com/pkbmbd/spmb/refs/heads/main/0.%20Logo%20PKBM%20Bahtera%20Dua.png" alt="Logo PKBM" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/059669/FFFFFF?text=LOGO';" />
+                </div>
+                <div>
+                    <h1 class="font-black text-xl tracking-tight text-emerald-950 dark:text-emerald-50">PORTAL TUTOR</h1>
+                    <p class="text-xs font-medium text-emerald-600 dark:text-emerald-400">PKBM Bahtera Dua Kota Blitar</p>
+                </div>
+            </a>
+
+            <nav class="flex items-center gap-2 sm:gap-3">
+                <button type="button" id="themeToggle" class="p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-800/50 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800 transition" title="Ganti Mode">
+                    <i id="themeIcon" class="fa-solid fa-moon text-base"></i>
+                </button>
+
+                <button type="button" onclick="bukaModalKeluar()" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold text-xs sm:text-sm hover:bg-red-200 dark:hover:bg-red-800/60 transition" title="Keluar">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="hidden sm:inline">Keluar</span>
+                </button>
+
+                <button type="button" id="burgerBtn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-800/50 text-emerald-800 dark:text-emerald-200 transition">
+                    <i id="burgerIcon" class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- LAYOUT MAIN -->
+    <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8 flex-1">
+        
+        <!-- SIDEBAR -->
+        <aside id="sidebarNav" class="w-full md:w-64 shrink-0 hidden md:block transition-all duration-300">
+            <div class="bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-4 shadow-sm sticky top-28 space-y-4">
+                <div>
+                    <h2 class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3 px-3">Menu Utama</h2>
+                    <ul class="space-y-1.5">
+                        <li>
+                            <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl font-semibold text-xs sm:text-sm text-emerald-900 dark:text-emerald-100 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 transition" onclick="showSection(event, 'peserta')">
+                                <i class="fa-solid fa-users text-emerald-600 w-5"></i> Daftar Peserta Didik
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl font-semibold text-xs sm:text-sm text-emerald-900 dark:text-emerald-100 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 transition" onclick="showSection(event, 'absensi')">
+                                <i class="fa-solid fa-clipboard-user text-emerald-600 w-5"></i> Rekap Absensi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl font-semibold text-xs sm:text-sm text-emerald-900 dark:text-emerald-100 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 transition" onclick="showSection(event, 'tugas')">
+                                <i class="fa-solid fa-file-lines text-emerald-600 w-5"></i> Rekap Tugas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-2xl font-semibold text-xs sm:text-sm text-emerald-900 dark:text-emerald-100 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 transition" onclick="showSection(event, 'pertemuan')">
+                                <i class="fa-solid fa-folder-plus text-emerald-600 w-5"></i> Kelola Pertemuan
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA -->
+        <main class="flex-1 space-y-6 min-w-0">
+
+            <!-- 1. PESERTA DIDIK -->
+            <div id="peserta" class="section-content">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-black text-emerald-950 dark:text-emerald-50">Daftar Peserta Didik</h2>
+                        <p class="text-xs text-slate-500 dark:text-emerald-300/70">Kelola informasi siswa dari Spreadsheet</p>
+                    </div>
+                    <button type="button" onclick="toggleFormSiswa()" class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-2xl transition shadow-lg">
+                        <i class="fa-solid fa-user-plus"></i> <span>Tambah Peserta Didik</span>
+                    </button>
+                </div>
+
+                <div id="wrapperFormSiswa" class="hidden bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 shadow-sm mb-6 space-y-4">
+                    <h3 class="text-lg font-bold text-emerald-950 dark:text-emerald-50">Tambah Peserta Didik Baru</h3>
+                    <form onsubmit="simpanSiswaBaru(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <input type="text" id="addNama" placeholder="Nama Lengkap" required class="px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                            <input type="text" id="addPassword" placeholder="Password (misal: 0123)" required class="px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                            <select id="addKelas" required class="px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                                <option value="" disabled selected>-- Pilih Kelas --</option>
+                                <option value="Kelas Bawah (1 - 3)">Kelas Bawah (1 - 3)</option>
+                                <option value="Kelas Atas (4 - 6)">Kelas Atas (4 - 6)</option>
+                            </select>
+                        </div>
+                        <button type="submit" id="btnSimpanSiswa" class="bg-emerald-600 text-white font-bold text-xs px-5 py-2.5 rounded-xl">Simpan Ke Spreadsheet</button>
+                    </form>
+                </div>
+
+                <div class="bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 shadow-sm overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-emerald-100/60 dark:bg-emerald-800/50 font-bold border-b border-emerald-200 dark:border-emerald-700">
+                                <th class="p-3">Nama Lengkap</th>
+                                <th class="p-3">Password</th>
+                                <th class="p-3">Kelas</th>
+                                <th class="p-3 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelPesertaBody" class="divide-y divide-emerald-100 dark:divide-emerald-800/50">
+                            <tr><td colspan="4" class="p-4 text-center text-slate-500">Memuat data dari Spreadsheet...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 2. REKAP ABSENSI -->
+            <div id="absensi" class="section-content hidden">
+                <div class="bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-emerald-100 dark:border-emerald-800/60 pb-3">
+                        <h3 class="text-xl font-black text-emerald-950 dark:text-emerald-50">
+                            <i class="fa-solid fa-clipboard-user text-emerald-600"></i> Rekap Absensi Keseluruhan
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs font-bold text-slate-700 dark:text-emerald-200 shrink-0">Filter Kelas:</label>
+                            <select id="filterKelasAbsensi" onchange="filterAbsensiByKelas()" class="px-3 py-1.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-white dark:bg-emerald-900 text-xs font-semibold">
+                                <option value="">Semua Kelas</option>
+                                <option value="Kelas Bawah (1 - 3)">Kelas Bawah (1 - 3)</option>
+                                <option value="Kelas Atas (4 - 6)">Kelas Atas (4 - 6)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead id="thAbsensi" class="bg-emerald-100/60 dark:bg-emerald-800/50 font-bold"></thead>
+                            <tbody id="tbAbsensi" class="divide-y divide-emerald-100 dark:divide-emerald-800/50">
+                                <tr><td class="p-4 text-center text-slate-500">Memuat data absensi...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. REKAP TUGAS -->
+            <div id="tugas" class="section-content hidden">
+                <div class="bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 shadow-sm space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-100 dark:border-emerald-800/60 pb-3">
+                        <div>
+                            <h3 class="text-xl font-black text-emerald-950 dark:text-emerald-50">
+                                <i class="fa-solid fa-file-lines text-emerald-600"></i> Rekap Tugas Siswa
+                            </h3>
+                            <p class="text-xs text-slate-500 dark:text-emerald-300/70">Pilih Kelas dan Mata Pelajaran untuk menampilkan rekap tugas.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-emerald-50/50 dark:bg-emerald-950/40 p-4 rounded-2xl border border-emerald-100 dark:border-emerald-800/60">
+                        <div>
+                            <label class="block text-xs font-bold mb-1 text-slate-700 dark:text-emerald-200">Pilih Kelas</label>
+                            <select id="filterKelasTugas" onchange="loadTugas()" class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-white dark:bg-emerald-900 text-slate-800 dark:text-emerald-100 focus:ring-2 focus:ring-emerald-500 outline-none text-xs sm:text-sm font-semibold">
+                                <option value="">-- Pilih Kelas --</option>
+                                <option value="Kelas Bawah (1 - 3)">Kelas Bawah (1 - 3)</option>
+                                <option value="Kelas Atas (4 - 6)">Kelas Atas (4 - 6)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 text-slate-700 dark:text-emerald-200">Pilih Mata Pelajaran</label>
+                            <select id="filterMapelTugas" onchange="loadTugas()" class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-white dark:bg-emerald-900 text-slate-800 dark:text-emerald-100 focus:ring-2 focus:ring-emerald-500 outline-none text-xs sm:text-sm font-semibold">
+                                <option value="">-- Pilih Mata Pelajaran --</option>
+                                <option value="Ilmu Pengetahuan Sosial">Ilmu Pengetahuan Sosial</option>
+                                <option value="Pendidikan Kewarganegaraan">Pendidikan Kewarganegaraan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-emerald-100/60 dark:bg-emerald-800/50 font-bold border-b border-emerald-200 dark:border-emerald-700">
+                                    <th class="p-3">Nama Siswa</th>
+                                    <th class="p-3">Pertemuan</th>
+                                    <th class="p-3">Nama File</th>
+                                    <th class="p-3">Link Drive</th>
+                                    <th class="p-3 text-center">Nilai</th>
+                                    <th class="p-3">Waktu Unggah</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelTugasBody" class="divide-y divide-emerald-100 dark:divide-emerald-800/50">
+                                <tr><td colspan="6" class="p-4 text-center text-slate-500">Silakan pilih kelas dan mata pelajaran...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. KELOLA PERTEMUAN -->
+            <div id="pertemuan" class="section-content hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-black text-emerald-950 dark:text-emerald-50">Kelola Pertemuan</h2>
+                        <p class="text-xs text-slate-500 dark:text-emerald-300/70">Data langsung disinkronkan dari Spreadsheet</p>
+                    </div>
+                    <button type="button" onclick="toggleFormPertemuan()" class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-2xl transition shadow-lg">
+                        <i class="fa-solid fa-plus-circle"></i> <span>Tambah Pertemuan Baru</span>
+                    </button>
+                </div>
+
+                <div id="wrapperFormPertemuan" class="hidden bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 shadow-sm mb-6 space-y-6">
+                    <h3 class="text-lg font-bold text-emerald-950 dark:text-emerald-50 border-b border-emerald-100 dark:border-emerald-800/60 pb-2">Form Tambah Pertemuan</h3>
+                    
+                    <form onsubmit="simpanPertemuan(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Kelas <span class="text-red-500">*</span></label>
+                                <select id="inputKelas" required class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                                    <option value="" disabled selected>-- Pilih Kelas --</option>
+                                    <option value="Kelas Bawah (1 - 3)">Kelas Bawah (1 - 3)</option>
+                                    <option value="Kelas Atas (4 - 6)">Kelas Atas (4 - 6)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Mata Pelajaran <span class="text-red-500">*</span></label>
+                                <select id="inputMapel" required class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                                    <option value="" disabled selected>-- Pilih Mata Pelajaran --</option>
+                                    <option value="Ilmu Pengetahuan Sosial">Ilmu Pengetahuan Sosial</option>
+                                    <option value="Pendidikan Kewarganegaraan">Pendidikan Kewarganegaraan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Nama Pertemuan <span class="text-red-500">*</span></label>
+                                <input type="text" id="inputNamaPertemuan" placeholder="Contoh: Pertemuan 1" required class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Judul Materi <span class="text-red-500">*</span></label>
+                            <input type="text" id="inputJudul" placeholder="Judul Pembahasan Utama" required class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                        </div>
+
+                        <div class="pt-2 border-t border-emerald-100 dark:border-emerald-800/60 space-y-4">
+                            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Link Modul & Video (Opsional)</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold mb-1">Link Embed Doc</label>
+                                    <input type="url" id="linkEmbedDoc" oninput="autoFillDirectDoc()" placeholder="https://docs.google.com/.../preview" class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold mb-1">Link Direct Doc <span class="text-[10px] text-slate-400">(Otomatis Terisi)</span></label>
+                                    <input type="url" id="linkDirectDoc" placeholder="Terisi otomatis dari Embed Doc" class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold mb-1">Link YouTube</label>
+                                <input type="url" id="linkYoutube" placeholder="https://youtube.com/watch?v=..." class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-emerald-100 dark:border-emerald-800/60 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Daftar Soal Latihan (Opsional)</span>
+                                <button type="button" onclick="tambahInputSoal('containerSoal')" class="bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-200 text-xs font-bold px-3 py-1.5 rounded-xl transition">
+                                    <i class="fa-solid fa-plus"></i> Tambah Soal
+                                </button>
+                            </div>
+                            <div id="containerSoal" class="space-y-2"></div>
+                        </div>
+
+                        <div class="pt-4 flex justify-end gap-2">
+                            <button type="button" onclick="toggleFormPertemuan()" class="bg-slate-200 dark:bg-emerald-800/80 text-xs font-bold px-5 py-2.5 rounded-xl">Batal</button>
+                            <button type="submit" id="btnSimpanPertemuan" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-6 py-2.5 rounded-xl transition">Simpan Pertemuan</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 shadow-sm mb-6 space-y-4">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-emerald-200 uppercase tracking-wider">Filter Rekap Pertemuan</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <select id="filterKelasPertemuan" onchange="loadPertemuan()" class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm font-semibold">
+                                <option value="">-- Pilih Kelas --</option>
+                                <option value="Kelas Bawah (1 - 3)">Kelas Bawah (1 - 3)</option>
+                                <option value="Kelas Atas (4 - 6)">Kelas Atas (4 - 6)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="filterMapelPertemuan" onchange="loadPertemuan()" class="w-full px-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm font-semibold">
+                                <option value="">-- Pilih Mata Pelajaran --</option>
+                                <option value="Ilmu Pengetahuan Sosial">Ilmu Pengetahuan Sosial</option>
+                                <option value="Pendidikan Kewarganegaraan">Pendidikan Kewarganegaraan</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 shadow-sm overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead id="thPertemuan" class="bg-emerald-100/60 dark:bg-emerald-800/50 font-bold border-b border-emerald-200 dark:border-emerald-700"></thead>
+                        <tbody id="tbPertemuan" class="divide-y divide-emerald-100 dark:divide-emerald-800/50">
+                            <tr><td class="p-4 text-center text-slate-500">Silakan pilih kelas dan mata pelajaran untuk memuat data pertemuan.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL KONFIRMASI KELUAR -->
+    <div id="konfirmasiKeluarModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl">
+            <div class="w-14 h-14 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-emerald-950 dark:text-emerald-50">Konfirmasi Keluar</h3>
+                <p class="text-xs text-slate-500 dark:text-emerald-300/70 mt-1">Apakah Anda yakin ingin keluar dari Portal Mengajar Tutor?</p>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button type="button" onclick="tutupModalKeluar()" class="w-1/2 bg-slate-100 dark:bg-emerald-800/80 text-slate-700 dark:text-emerald-100 font-bold text-xs py-2.5 rounded-xl">Batal</button>
+                <button type="button" onclick="eksekusiKeluar()" class="w-1/2 bg-red-600 text-white font-bold text-xs py-2.5 rounded-xl shadow-md">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDIT SISWA -->
+    <div id="editSiswaModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+            <h3 class="text-lg font-bold text-emerald-950 dark:text-emerald-50">Edit Data Peserta Didik</h3>
+            <input type="hidden" id="editRowIndex">
+            <div>
+                <label class="block text-xs font-bold mb-1">Nama Lengkap</label>
+                <input type="text" id="editNama" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs">
+            </div>
+            <div>
+                <label class="block text-xs font-bold mb-1">Password</label>
+                <input type="text" id="editPassword" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs">
+            </div>
+            <div>
+                <label class="block text-xs font-bold mb-1">Kelas</label>
+                <select id="editKelas" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs">
+                    <option value="Kelas Bawah (1 - 3)">Kelas Bawah (1 - 3)</option>
+                    <option value="Kelas Atas (4 - 6)">Kelas Atas (4 - 6)</option>
+                </select>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button type="button" onclick="toggleModal('editSiswaModal')" class="bg-slate-200 dark:bg-emerald-800 text-xs px-4 py-2 rounded-xl font-bold">Batal</button>
+                <button type="button" id="btnSimpanEditSiswa" onclick="simpanEditSiswa()" class="bg-emerald-600 text-white text-xs px-4 py-2 rounded-xl font-bold">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDIT PERTEMUAN -->
+    <div id="editPertemuanModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-xl w-full p-6 space-y-4 shadow-2xl overflow-y-auto max-h-[90vh]">
+            <h3 class="text-lg font-bold text-emerald-950 dark:text-emerald-50 border-b border-emerald-100 dark:border-emerald-800/60 pb-2">Edit Data Pertemuan</h3>
+            <input type="hidden" id="editPertemuanRowIndex">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold mb-1">Nama Pertemuan</label>
+                    <input type="text" id="editPertemuanNama" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">Judul Materi</label>
+                    <input type="text" id="editPertemuanJudul" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold mb-1">Link Embed Doc</label>
+                <input type="url" id="editPertemuanEmbed" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs">
+            </div>
+            <div>
+                <label class="block text-xs font-bold mb-1">Link Direct Doc</label>
+                <input type="url" id="editPertemuanDirect" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs">
+            </div>
+            <div>
+                <label class="block text-xs font-bold mb-1">Link YouTube</label>
+                <input type="url" id="editPertemuanYoutube" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs">
+            </div>
+
+            <div class="pt-2 border-t border-emerald-100 dark:border-emerald-800/60 space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Kelola Soal Latihan</span>
+                    <button type="button" onclick="tambahInputSoal('editContainerSoal')" class="bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-200 text-xs font-bold px-3 py-1.5 rounded-xl transition">
+                        <i class="fa-solid fa-plus"></i> Tambah Soal
+                    </button>
+                </div>
+                <div id="editContainerSoal" class="space-y-2"></div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-3 border-t border-emerald-100 dark:border-emerald-800/60">
+                <button type="button" onclick="toggleModal('editPertemuanModal')" class="bg-slate-200 dark:bg-emerald-800 text-xs px-4 py-2 rounded-xl font-bold">Batal</button>
+                <button type="button" id="btnSimpanEditPertemuan" onclick="simpanEditPertemuan()" class="bg-emerald-600 text-white text-xs px-5 py-2 rounded-xl font-bold">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DETAIL & PENILAIAN TUGAS -->
+    <div id="detailTugasModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-3xl max-w-3xl w-full p-6 space-y-4 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="flex items-center justify-between border-b border-emerald-100 dark:border-emerald-800 pb-3">
+                <div>
+                    <h3 id="modalNamaSiswa" class="text-lg font-bold text-emerald-950 dark:text-emerald-50">Detail Tugas</h3>
+                    <p id="modalDetailInfo" class="text-xs text-slate-500 dark:text-emerald-300/70"></p>
+                </div>
+                <button type="button" onclick="toggleModal('detailTugasModal')" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <input type="hidden" id="modalRowIndex">
+
+            <div class="flex-1 min-h-[320px] bg-slate-100 dark:bg-emerald-950/50 rounded-2xl overflow-hidden border border-emerald-200 dark:border-emerald-800 flex flex-col">
+                <iframe id="modalIframeEmbed" class="w-full h-full min-h-[320px]" src="about:blank"></iframe>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t border-emerald-100 dark:border-emerald-800">
+                <a id="modalLinkExternal" href="#" target="_blank" class="text-xs text-sky-600 hover:underline flex items-center gap-1">
+                    <i class="fa-solid fa-up-right-from-square"></i> Buka File di Tab Baru
+                </a>
+                
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <label class="text-xs font-bold shrink-0">Berikan Nilai:</label>
+                    <input type="number" id="modalInputNilai" class="w-20 px-3 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-center font-bold text-xs" placeholder="0-100">
+                    <button type="button" id="btnSimpanNilai" onclick="simpanNilaiModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-5 py-2 rounded-xl transition shrink-0">
+                        Simpan Nilai
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT UTAMA -->
+    <script>
+        // MASUKKAN URL HASIL DEPLOY GOOGLE APPS SCRIPT ANDA DI SINI
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtPKLZow-3GO1qC2OKAF-fO7tnPi7xABTkMUWkODwUVtT6QHdHWUBK6KsLwx4Nb2l_/exec";
+
+        let globalDataTugas = [];
+        let globalDataAbsensi = [];
+
+        // Fungsi pembantu untuk pemanggilan Fetch ke GAS Web App
+        async function fetchGAS(action, params = {}, postBody = null) {
+            let url = new URL(SCRIPT_URL);
+            url.searchParams.append("action", action);
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+            let options = {
+                method: postBody ? 'POST' : 'GET'
+            };
+
+            if (postBody) {
+                options.body = JSON.stringify(postBody);
+            }
+
+            try {
+                let response = await fetch(url, options);
+                return await response.json();
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                return null;
+            }
+        }
+
+        function bukaModalKeluar() { document.getElementById('konfirmasiKeluarModal').classList.remove('hidden'); }
+        function tutupModalKeluar() { document.getElementById('konfirmasiKeluarModal').classList.add('hidden'); }
+        function eksekusiKeluar() { window.open("https://pkbmbd.github.io/dashboard/", "_self"); }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebarNav');
+            const burgerIcon = document.getElementById('burgerIcon');
+            sidebar.classList.toggle('hidden');
+            burgerIcon.classList.toggle('fa-bars');
+            burgerIcon.classList.toggle('fa-xmark');
+        }
+
+        function showSection(e, sectionId) {
+            if (e) e.preventDefault();
+            document.querySelectorAll('.section-content').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('bg-emerald-600', 'text-white'));
+
+            document.getElementById(sectionId).classList.remove('hidden');
+            if (e && e.currentTarget) e.currentTarget.classList.add('bg-emerald-600', 'text-white');
+
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebarNav').classList.add('hidden');
+                document.getElementById('burgerIcon').className = 'fa-solid fa-bars text-xl';
+            }
+
+            if(sectionId === 'peserta') loadPeserta();
+            if(sectionId === 'absensi') loadAbsensi();
+            if(sectionId === 'tugas') loadTugas();
+            if(sectionId === 'pertemuan') loadPertemuan();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.nav-link').classList.add('bg-emerald-600', 'text-white');
+            loadPeserta();
+        });
+
+        // 1. PESERTA DIDIK
+        async function loadPeserta() {
+            let tbody = document.getElementById('tabelPesertaBody');
+            tbody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-slate-500">Memuat data dari Spreadsheet...</td></tr>';
+
+            let data = await fetchGAS("getPesertaDidik");
+            
+            tbody.innerHTML = '';
+            if(!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="p-4 text-center">Belum ada data siswa.</td></tr>';
+                return;
+            }
+            data.forEach(row => {
+                let pwdVal = row.Password !== undefined ? row.Password : (row.password !== undefined ? row.password : '');
+                let originalPwd = String(pwdVal);
+                let namaVal = row.Nama || row.nama || '';
+                let kelasVal = row.Kelas || row.kelas || '';
+                
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="p-3 font-semibold">${namaVal}</td>
+                        <td class="p-3">
+                            <span id="pwd-display-${row.rowIndex}">••••••••</span>
+                            <button type="button" onclick="togglePassword(${row.rowIndex}, '${originalPwd}')" class="text-emerald-600 dark:text-emerald-400 ml-2">
+                                <i class="fa-solid fa-eye" id="icon-pwd-${row.rowIndex}"></i>
+                            </button>
+                        </td>
+                        <td class="p-3">${kelasVal}</td>
+                        <td class="p-3 text-center">
+                            <button type="button" onclick="openEditModal(${row.rowIndex}, '${namaVal}', '${originalPwd}', '${kelasVal}')" class="p-2 rounded-lg bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-300">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function togglePassword(index, originalPwd) {
+            const pwdText = document.getElementById(`pwd-display-${index}`);
+            const icon = document.getElementById(`icon-pwd-${index}`);
+            
+            if (pwdText.innerText === '••••••••') {
+                pwdText.innerText = originalPwd;
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                pwdText.innerText = '••••••••';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function openEditModal(rowIndex, nama, password, kelas) {
+            document.getElementById('editRowIndex').value = rowIndex;
+            document.getElementById('editNama').value = nama;
+            document.getElementById('editPassword').value = password;
+            document.getElementById('editKelas').value = kelas;
+            toggleModal('editSiswaModal');
+        }
+
+        async function simpanEditSiswa() {
+            const btn = document.getElementById('btnSimpanEditSiswa');
+            btn.innerText = "Menyimpan...";
+            btn.disabled = true;
+
+            const rowIndex = document.getElementById('editRowIndex').value;
+            const nama = document.getElementById('editNama').value;
+            const password = String(document.getElementById('editPassword').value);
+            const kelas = document.getElementById('editKelas').value;
+
+            await fetchGAS("updatePesertaDidik", {}, { rowIndex, nama, kelas, password });
+            
+            btn.innerText = "Simpan Perubahan";
+            btn.disabled = false;
+            toggleModal('editSiswaModal');
+            loadPeserta();
+        }
+
+        async function simpanSiswaBaru(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSimpanSiswa');
+            btn.innerText = "Menyimpan...";
+            btn.disabled = true;
+
+            const nama = document.getElementById('addNama').value;
+            const password = String(document.getElementById('addPassword').value);
+            const kelas = document.getElementById('addKelas').value;
+
+            await fetchGAS("simpanSiswaBaru", {}, { nama, kelas, password });
+            
+            btn.innerText = "Simpan Ke Spreadsheet";
+            btn.disabled = false;
+            toggleFormSiswa();
+            e.target.reset();
+            loadPeserta();
+        }
+
+        // 2. REKAP ABSENSI
+        async function loadAbsensi() {
+            let data = await fetchGAS("getAbsensi");
+            globalDataAbsensi = data || [];
+            filterAbsensiByKelas();
+        }
+
+        function filterAbsensiByKelas() {
+            const selectedKelas = document.getElementById('filterKelasAbsensi').value;
+            let dataFiltered = globalDataAbsensi;
+
+            if (selectedKelas && dataFiltered.length > 0) {
+                dataFiltered = dataFiltered.filter(row => {
+                    return row.Kelas === selectedKelas || row.kelas === selectedKelas;
+                });
+            }
+
+            if (!dataFiltered || dataFiltered.length === 0) {
+                document.getElementById('tbAbsensi').innerHTML = '<tr><td class="p-4 text-center text-slate-500">Belum ada data absensi untuk kelas ini.</td></tr>';
+                return;
+            }
+
+            renderDynamicTable(dataFiltered, 'thAbsensi', 'tbAbsensi');
+        }
+
+        // 3. REKAP TUGAS
+        async function loadTugas() {
+            const kelas = document.getElementById('filterKelasTugas').value;
+            const mapel = document.getElementById('filterMapelTugas').value;
+
+            if (!kelas || !mapel) return;
+
+            let tbody = document.getElementById('tabelTugasBody');
+            tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-500">Memuat data tugas...</td></tr>';
+
+            let data = await fetchGAS("getTugasFiltered", { kelas, mapel });
+            globalDataTugas = data || [];
+            tbody.innerHTML = '';
+            
+            if(!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-500">Tidak ada data tugas yang sesuai.</td></tr>';
+                return;
+            }
+
+            data.forEach((row, idx) => {
+                let namaSiswa = row['Nama Siswa'] || row.NamaSiswa || row['Nama'] || '-';
+                let pertemuan = row['Pertemuan'] || row.PertemuanKe || '-';
+                let namaFile = row['Nama File'] || row.NamaFile || '-';
+                let linkDrive = row['Link Google Drive'] || row['Link Drive'] || row['Link Google Drive / Upload File'] || row['Link File'] || row.LinkDrive || '';
+                let nilai = row['Nilai'] !== undefined ? row['Nilai'] : '';
+                let waktuUnggah = row['Waktu Unggah'] || row.WaktuUnggah || row['Timestamp'] || '-';
+
+                let badgeNilai = nilai !== "" 
+                    ? `<span class="bg-emerald-100 dark:bg-emerald-800/80 text-emerald-800 dark:text-emerald-200 font-bold px-2.5 py-1 rounded-lg">${nilai}</span>` 
+                    : `<span class="text-slate-400 italic">Belum Dinilai</span>`;
+
+                tbody.innerHTML += `
+                    <tr onclick="bukaModalTugas(${idx})" class="hover:bg-emerald-50/80 dark:hover:bg-emerald-800/30 cursor-pointer transition">
+                        <td class="p-3 font-bold text-emerald-950 dark:text-emerald-50">${namaSiswa}</td>
+                        <td class="p-3 font-semibold">${pertemuan}</td>
+                        <td class="p-3 text-xs">${namaFile}</td>
+                        <td class="p-3">
+                            ${linkDrive ? `<a href="${linkDrive}" target="_blank" onclick="event.stopPropagation()" class="text-sky-600 hover:underline"><i class="fa-solid fa-link"></i> Drive</a>` : '-'}
+                        </td>
+                        <td class="p-3 text-center">${badgeNilai}</td>
+                        <td class="p-3 text-xs text-slate-400">${waktuUnggah}</td>
+                    </tr>`;
+            });
+        }
+
+        function bukaModalTugas(index) {
+            const item = globalDataTugas[index];
+            if(!item) return;
+
+            let linkDrive = item['Link Google Drive'] || item['Link Drive'] || item['Link Google Drive / Upload File'] || item['Link File'] || item.LinkDrive || '';
+            let embedUrl = convertDriveUrl(linkDrive);
+
+            document.getElementById('modalRowIndex').value = item.rowIndex;
+            document.getElementById('modalNamaSiswa').innerText = item['Nama Siswa'] || item.NamaSiswa || item['Nama'] || 'Detail Tugas';
+            document.getElementById('modalDetailInfo').innerText = `${item['Pertemuan'] || '-'} | File: ${item['Nama File'] || '-'}`;
+            document.getElementById('modalIframeEmbed').src = embedUrl;
+            document.getElementById('modalLinkExternal').href = linkDrive || '#';
+            document.getElementById('modalInputNilai').value = item['Nilai'] !== undefined ? item['Nilai'] : '';
+
+            toggleModal('detailTugasModal');
+        }
+
+        async function simpanNilaiModal() {
+            const btn = document.getElementById('btnSimpanNilai');
+            btn.innerText = "Simpan...";
+            btn.disabled = true;
+
+            const kelas = document.getElementById('filterKelasTugas').value;
+            const mapel = document.getElementById('filterMapelTugas').value;
+            const rowIndex = document.getElementById('modalRowIndex').value;
+            const nilai = document.getElementById('modalInputNilai').value;
+
+            let res = await fetchGAS("updateNilaiTugas", {}, { kelas, mapel, rowIndex, nilai });
+            btn.innerText = "Simpan Nilai";
+            btn.disabled = false;
+            
+            if(res) {
+                toggleModal('detailTugasModal');
+                loadTugas();
+            } else {
+                alert("Gagal menyimpan nilai.");
+            }
+        }
+
+        function convertDriveUrl(url) {
+            if(!url) return 'about:blank';
+            let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            return match ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
+        }
+
+        // 4. KELOLA PERTEMUAN
+        async function loadPertemuan() {
+            const kelas = document.getElementById('filterKelasPertemuan').value;
+            const mapel = document.getElementById('filterMapelPertemuan').value;
+
+            if (!kelas || !mapel) return;
+
+            let tbody = document.getElementById('tbPertemuan');
+            tbody.innerHTML = '<tr><td class="p-4 text-center text-slate-500">Memuat data pertemuan...</td></tr>';
+
+            let data = await fetchGAS("getPertemuanFiltered", { kelas, mapel });
+            
+            if(!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td class="p-4 text-center text-slate-500">Belum ada data pertemuan untuk kelas & mapel ini.</td></tr>';
+                return;
+            }
+            renderPertemuanTable(data);
+        }
+
+        function renderPertemuanTable(data) {
+            const thead = document.getElementById('thPertemuan');
+            const tbody = document.getElementById('tbPertemuan');
+
+            let headers = Object.keys(data[0]).filter(h => h !== 'rowIndex');
+
+            let headerHtml = '<tr class="border-b border-emerald-200 dark:border-emerald-700">';
+            headers.forEach(h => headerHtml += `<th class="p-3 whitespace-nowrap">${h}</th>`);
+            headerHtml += '<th class="p-3 text-center">Aksi</th></tr>';
+            thead.innerHTML = headerHtml;
+
+            let bodyHtml = '';
+            data.forEach((row) => {
+                bodyHtml += '<tr>';
+                headers.forEach(h => {
+                    let val = row[h] !== undefined ? row[h] : '';
+                    if (typeof val === 'string' && val.startsWith('http')) {
+                        val = `<a href="${val}" target="_blank" class="text-sky-600 hover:underline"><i class="fa-solid fa-link"></i> Link</a>`;
+                    }
+                    bodyHtml += `<td class="p-3 text-xs sm:text-sm whitespace-nowrap">${val}</td>`;
+                });
+
+                let jsonRowString = JSON.stringify(row).replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+
+                bodyHtml += `
+                    <td class="p-3 text-center">
+                        <button type="button" onclick='openEditPertemuanModal(${jsonRowString})' class="p-2 rounded-lg bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-300">
+                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                        </button>
+                    </td>
+                </tr>`;
+            });
+            tbody.innerHTML = bodyHtml;
+        }
+
+        function openEditPertemuanModal(rowData) {
+            document.getElementById('editPertemuanRowIndex').value = rowData.rowIndex;
+            document.getElementById('editPertemuanNama').value = rowData['Pertemuan'] || rowData['Nama Pertemuan'] || '';
+            document.getElementById('editPertemuanJudul').value = rowData['Judul Materi'] || '';
+            document.getElementById('editPertemuanEmbed').value = rowData['Link Embed Doc'] || '';
+            document.getElementById('editPertemuanDirect').value = rowData['Link Direct Doc'] || '';
+            document.getElementById('editPertemuanYoutube').value = rowData['Link Youtube'] || '';
+
+            const editContainer = document.getElementById('editContainerSoal');
+            editContainer.innerHTML = '';
+
+            let soalKeys = Object.keys(rowData).filter(k => k.toLowerCase().startsWith('soal')).sort((a, b) => {
+                let numA = parseInt(a.replace(/\D/g, '')) || 0;
+                let numB = parseInt(b.replace(/\D/g, '')) || 0;
+                return numA - numB;
+            });
+            
+            if(soalKeys.length > 0) {
+                soalKeys.forEach(k => {
+                    if(rowData[k]) {
+                        tambahInputSoal('editContainerSoal', rowData[k]);
+                    }
+                });
+            } else {
+                tambahInputSoal('editContainerSoal', '');
+            }
+
+            toggleModal('editPertemuanModal');
+        }
+
+        async function simpanEditPertemuan() {
+            const btn = document.getElementById('btnSimpanEditPertemuan');
+            btn.innerText = "Menyimpan...";
+            btn.disabled = true;
+
+            const editContainer = document.getElementById('editContainerSoal');
+            const soalInputs = editContainer.querySelectorAll('input');
+            
+            let payload = {
+                rowIndex: document.getElementById('editPertemuanRowIndex').value,
+                kelas: document.getElementById('filterKelasPertemuan').value,
+                mapel: document.getElementById('filterMapelPertemuan').value,
+                NamaPertemuan: document.getElementById('editPertemuanNama').value,
+                JudulMateri: document.getElementById('editPertemuanJudul').value,
+                LinkEmbedDoc: document.getElementById('editPertemuanEmbed').value,
+                LinkDirectDoc: document.getElementById('editPertemuanDirect').value,
+                LinkYoutube: document.getElementById('editPertemuanYoutube').value
+            };
+
+            soalInputs.forEach((input, idx) => {
+                payload[`Soal ${idx + 1}`] = input.value;
+            });
+
+            await fetchGAS("updatePertemuan", {}, payload);
+
+            btn.innerText = "Simpan Perubahan";
+            btn.disabled = false;
+            toggleModal('editPertemuanModal');
+            loadPertemuan();
+        }
+
+        function autoFillDirectDoc() {
+            document.getElementById('linkDirectDoc').value = document.getElementById('linkEmbedDoc').value;
+        }
+
+        function tambahInputSoal(containerId, valueText = '') {
+            const container = document.getElementById(containerId);
+            const uniqueId = Date.now() + Math.random().toString(36).substr(2, 4);
+
+            const div = document.createElement('div');
+            div.id = `soalField_${uniqueId}`;
+            div.className = "flex items-center gap-2 soal-item";
+            div.innerHTML = `
+                <input type="text" value="${valueText}" placeholder="Soal Latihan" class="w-full px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-950/50 text-xs sm:text-sm">
+                <button type="button" onclick="hapusInputSoal('soalField_${uniqueId}')" class="text-red-500 hover:text-red-700 p-2 shrink-0" title="Hapus Soal">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            `;
+            container.appendChild(div);
+            updateSoalPlaceholders(containerId);
+        }
+
+        function hapusInputSoal(elementId) {
+            const element = document.getElementById(elementId);
+            if(element) {
+                const parent = element.parentElement;
+                element.remove();
+                if(parent) updateSoalPlaceholders(parent.id);
+            }
+        }
+
+        function updateSoalPlaceholders(containerId) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            const inputs = container.querySelectorAll('.soal-item input');
+            inputs.forEach((input, idx) => {
+                input.placeholder = `Soal Latihan #${idx + 1}`;
+            });
+        }
+
+        async function simpanPertemuan(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSimpanPertemuan');
+            btn.innerText = "Menyimpan...";
+            btn.disabled = true;
+
+            const container = document.getElementById('containerSoal');
+            const soalInputs = container.querySelectorAll('input');
+            
+            let payload = {
+                Kelas: document.getElementById('inputKelas').value,
+                MataPelajaran: document.getElementById('inputMapel').value,
+                NamaPertemuan: document.getElementById('inputNamaPertemuan').value,
+                JudulMateri: document.getElementById('inputJudul').value,
+                LinkEmbedDoc: document.getElementById('linkEmbedDoc').value,
+                LinkDirectDoc: document.getElementById('linkDirectDoc').value,
+                LinkYoutube: document.getElementById('linkYoutube').value
+            };
+
+            soalInputs.forEach((input, idx) => {
+                payload[`Soal ${idx + 1}`] = input.value;
+            });
+
+            await fetchGAS("simpanPertemuanBaru", {}, payload);
+
+            btn.innerText = "Simpan Pertemuan";
+            btn.disabled = false;
+            toggleFormPertemuan();
+            e.target.reset();
+            document.getElementById('containerSoal').innerHTML = '';
+            loadPertemuan();
+        }
+
+        function renderDynamicTable(data, thId, tbId) {
+            const thead = document.getElementById(thId);
+            const tbody = document.getElementById(tbId);
+
+            if (!data || data.length === 0) {
+                thead.innerHTML = '';
+                tbody.innerHTML = '<tr><td class="p-4 text-center text-slate-500">Tidak ada data.</td></tr>';
+                return;
+            }
+
+            let headers = Object.keys(data[0]).filter(h => h !== 'rowIndex');
+
+            let headerHtml = '<tr class="border-b border-emerald-200 dark:border-emerald-700">';
+            headers.forEach(h => headerHtml += `<th class="p-3 whitespace-nowrap">${h}</th>`);
+            headerHtml += '</tr>';
+            thead.innerHTML = headerHtml;
+
+            let bodyHtml = '';
+            data.forEach(row => {
+                bodyHtml += '<tr>';
+                headers.forEach(h => {
+                    let val = row[h] !== undefined ? row[h] : '';
+                    if (typeof val === 'string' && val.startsWith('http')) {
+                        val = `<a href="${val}" target="_blank" class="text-sky-600 hover:underline"><i class="fa-solid fa-link"></i> Link</a>`;
+                    }
+                    bodyHtml += `<td class="p-3 text-xs sm:text-sm whitespace-nowrap">${val}</td>`;
+                });
+                bodyHtml += '</tr>';
+            });
+            tbody.innerHTML = bodyHtml;
+        }
+
+        function toggleFormSiswa() { document.getElementById('wrapperFormSiswa').classList.toggle('hidden'); }
+        function toggleFormPertemuan() { document.getElementById('wrapperFormPertemuan').classList.toggle('hidden'); }
+        function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+    </script>
+</body>
+</html>
