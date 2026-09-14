@@ -134,25 +134,102 @@
                     </div>
                 </a>
 
-                <!-- PORTAL 3: DOKUMENTASI KEGIATAN -->
-                <button type="button" onclick="showView('galleryView')" class="group p-8 rounded-3xl bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 dark:hover:border-emerald-400 shadow-md hover:shadow-xl hover:scale-[1.03] transition-all duration-300 flex flex-col justify-between cursor-pointer text-left w-full">
+                <!-- PORTAL 3: PORTAL ADMIN & TUTOR (GABUNG) -->
+                <button type="button" onclick="openLogin()" class="group p-8 rounded-3xl bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 dark:hover:border-emerald-400 shadow-md hover:shadow-xl hover:scale-[1.03] transition-all duration-300 flex flex-col justify-between cursor-pointer text-left w-full">
                     <div>
                         <div class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-800/60 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
-                            <i class="fa-solid fa-camera-retro"></i>
+                            <i class="fa-solid fa-users-gear"></i>
                         </div>
-                        <h3 class="font-black text-2xl text-emerald-950 dark:text-emerald-50 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Dokumentasi Kegiatan</h3>
-                        <p class="text-xs text-slate-600 dark:text-emerald-200/70 mt-2 leading-relaxed">Galeri dokumentasi video YouTube, postingan Instagram, dan Facebook PKBM Bahtera Dua.</p>
+                        <h3 class="font-black text-2xl text-emerald-950 dark:text-emerald-50 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Portal Admin & Tutor</h3>
+                        <p class="text-xs text-slate-600 dark:text-emerald-200/70 mt-2 leading-relaxed">Ruang akses terpadu khusus untuk Administrator dan Tutor PKBM Bahtera Dua.</p>
                     </div>
                     <div class="mt-8 flex items-center justify-between text-xs font-bold text-emerald-600 dark:text-emerald-400">
-                        <span>Lihat Galeri Media</span>
-                        <i class="fa-solid fa-images group-hover:translate-x-1 transition"></i>
+                        <span>Masuk Portal</span>
+                        <i class="fa-solid fa-right-to-bracket group-hover:translate-x-1 transition"></i>
                     </div>
                 </button>
 
             </div>
+
+            <!-- DOKUMENTASI KEGIATAN (MEMANJANG DI BAWAH) -->
+            <button type="button" onclick="showView('galleryView')" class="group w-full p-8 rounded-3xl bg-white dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 dark:hover:border-emerald-400 shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col md:flex-row items-center justify-between cursor-pointer text-left gap-6">
+                <div class="flex items-center gap-6">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-800/60 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-3xl shrink-0 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-camera-retro"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-2xl text-emerald-950 dark:text-emerald-50 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Dokumentasi Kegiatan</h3>
+                        <p class="text-xs text-slate-600 dark:text-emerald-200/70 mt-1 leading-relaxed">Galeri dokumentasi video YouTube, postingan Instagram, dan Facebook PKBM Bahtera Dua.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 whitespace-nowrap">
+                    <span>Lihat Galeri Media</span>
+                    <i class="fa-solid fa-images group-hover:translate-x-1 transition"></i>
+                </div>
+            </button>
         </section>
 
-        <!-- HALAMAN 2: GALERI EMBED -->
+        <!-- HALAMAN 2: PORTAL LOGIN TERPADU -->
+        <section id="loginView" class="hidden space-y-6 max-w-md mx-auto py-10">
+            <div class="bg-white dark:bg-emerald-900/50 border border-emerald-200 dark:border-emerald-800 rounded-3xl p-8 shadow-xl space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-800 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-3xl mx-auto mb-4">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-emerald-950 dark:text-emerald-50">Portal Login Internal</h2>
+                    <p class="text-xs text-slate-500 dark:text-emerald-300/70">Pilih akses akun dan masukkan kredensial Anda</p>
+                </div>
+
+                <!-- ALERT PESAN KESALAHAN -->
+                <div id="loginError" class="hidden p-3 rounded-xl bg-red-100 border border-red-300 text-red-700 text-xs font-semibold flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-base"></i>
+                    <span id="errorMessage">Username, password, atau role tidak sesuai!</span>
+                </div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                    
+                    <!-- PILIHAN ROLE (ADMIN / TUTOR) -->
+                    <div>
+                        <label for="loginRole" class="block text-xs font-bold text-emerald-900 dark:text-emerald-200 uppercase tracking-wider mb-2">Pilih Akses Portal</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user-gear absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                            <select id="loginRole" required class="w-full pl-11 pr-4 py-3 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-sm focus:outline-none focus:border-emerald-500 text-emerald-950 dark:text-emerald-100 transition cursor-pointer">
+                                <option value="admin">Admin</option>
+                                <option value="tutor">Tutor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="username" class="block text-xs font-bold text-emerald-900 dark:text-emerald-200 uppercase tracking-wider mb-2">Username</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                            <input type="text" id="username" required placeholder="Masukkan username" class="w-full pl-11 pr-4 py-3 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-sm focus:outline-none focus:border-emerald-500 text-emerald-950 dark:text-emerald-100 transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-xs font-bold text-emerald-900 dark:text-emerald-200 uppercase tracking-wider mb-2">Password</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                            <input type="password" id="password" required placeholder="Masukkan password" class="w-full pl-11 pr-4 py-3 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-sm focus:outline-none focus:border-emerald-500 text-emerald-950 dark:text-emerald-100 transition">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition duration-200">
+                        Masuk Sistem
+                    </button>
+                </form>
+
+                <div class="pt-4 border-t border-emerald-100 dark:border-emerald-800 text-center">
+                    <button type="button" onclick="showView('homeView')" class="text-xs font-semibold text-emerald-700 dark:text-emerald-300 hover:underline inline-flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Utama
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 3: GALERI EMBED -->
         <section id="galleryView" class="hidden space-y-8">
             
             <!-- TOMBOL KEMBALI & HEADER UTAMA -->
@@ -509,10 +586,17 @@
 
     <!-- JAVASCRIPT -->
     <script>
+        // CONFIG : DIUBAH UNTUK MEMANGGIL FILE HTML DI REPOSITORI
+        const TARGET_URLS = {
+            admin: "admin.html", 
+            tutor: "tutor.html"  
+        };
+
         // Switch Halaman Single Page
         function showView(viewId) {
             document.getElementById('homeView').classList.add('hidden');
             document.getElementById('galleryView').classList.add('hidden');
+            document.getElementById('loginView').classList.add('hidden');
 
             const selectedView = document.getElementById(viewId);
             if (selectedView) {
@@ -528,6 +612,38 @@
                 if (window.FB && window.FB.XFBML) {
                     window.FB.XFBML.parse();
                 }
+            }
+        }
+
+        // Buka Portal Login Terpadu
+        function openLogin() {
+            document.getElementById('loginError').classList.add('hidden');
+            document.getElementById('loginForm').reset();
+            showView('loginView');
+        }
+
+        // Validasi Login dan Pengalihan URL
+        function handleLogin(event) {
+            event.preventDefault();
+            const role = document.getElementById('loginRole').value;
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value;
+            const loginError = document.getElementById('loginError');
+
+            let isValid = false;
+
+            if (role === 'admin' && user === 'admin' && pass === 'PKBMBahtera2') {
+                isValid = true;
+            } else if (role === 'tutor' && user === 'tutor' && pass === 'PKBMbd') {
+                isValid = true;
+            }
+
+            if (isValid) {
+                loginError.classList.add('hidden');
+                // Mengalihkan pengguna ke file HTML sesuai role yang dipilih
+                window.location.href = TARGET_URLS[role];
+            } else {
+                loginError.classList.remove('hidden');
             }
         }
 
